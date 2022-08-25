@@ -1,0 +1,55 @@
+:root{
+    --backgroundColor:rgb(187, 109, 255);
+    --backgroundColorCharge:rgb(255, 165, 0);
+    --backgroundColorHidden:rgba(168, 69, 255, 0.709);
+    --color:rgb(187, 109, 255);
+}
+
+.rectangleActive{
+    width: 8vw;
+    height: 4vh;
+    background: var(--backgroundColor);
+    border-radius: .1rem ;
+    
+    margin-bottom: .2rem;
+}
+
+.rectangleActiveCharge{
+    width: 8vw;
+    height: 4vh;
+
+    background: var(--backgroundColorCharge);
+    border-radius: .1rem ;
+    margin-bottom: .2rem;
+
+    animation-name: parpadear;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes parpadear {
+    0% { opacity: 1.0; }
+  50% { opacity: 0.0; }
+  100% { opacity: 1.0; }
+}
+.rectangleHidden{
+    width: 8vw;
+    height: 4vh;
+
+    background: var(--backgroundColorHidden);
+    border-radius: .1rem ;
+    
+    margin-bottom: .2rem;
+
+}
+
+.porcentaje{
+    display: flex;
+    flex-direction: row;
+    color: var(--color);
+    margin-top: 1rem;
+    align-items: center;
+    justify-content: center;
+    
+}

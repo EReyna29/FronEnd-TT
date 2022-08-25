@@ -1,23 +1,32 @@
-import logo from './logo.svg';
+
 import './App.css';
+import {useState} from 'react'
+
+import Tablero from './Tablero.js'
+import Alertas from './Alertas.js'
+import Footer from './Footer.js'
+
+import { VarsProvider } from "./VarsContext";
+
+
+
 
 function App() {
+
+  const [alert, setAlert] = useState(false);
+
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+    <div className='background' >
+      <VarsProvider>
+        { alert===false ? <Tablero /> : <Alertas />  }
+
+      <Footer alert={alert} setAlert={setAlert}></Footer>
+
+      </VarsProvider>
+        
+      
     </div>
   );
 }

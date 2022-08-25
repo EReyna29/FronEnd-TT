@@ -1,38 +1,222 @@
-.App {
-  text-align: center;
+:root{
+  --color:rgb(187, 109, 255);
+  --colorHidden: rgba(168, 69, 255, 0.709);
+  --colorTema: rgb(6, 246, 6);
+  --colorPower: green;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: content-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.background{
+  background-color: black;
   min-height: 100vh;
+  
+  max-height: max-content;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.bar{
+  min-height: 10vh;
+  
+  max-height: 10vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.mainTablero{
+  
+  min-height: 70vh;
+  
+  max-height: 70vh;
+  display: flex;
+  flex-direction: row;
+
+}
+
+
+
+.batery{
+  width: 20vw;
+  max-width: 20vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+
+}
+.temperature{
+  width: 20vw;
+  max-width: 20vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+
+}
+.signal{
+  width: 20vw;
+  max-width: 20vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  
+
 }
 
-.App-link {
-  color: #61dafb;
+.palanca{
+  width: 4rem;
+  height: 4rem;
+  background: transparent;
+  border: .3rem solid var(--color);
+  border-radius: .2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 1.5rem;
+  color: var(--color);
+
+
+  
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+.velocity{
+  width: 40vw;
+  max-width: 40vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--color);
+  
+
+}
+
+
+.intermitentes{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.intermitentesParpadear{
+
+    animation-name: parpadear;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes parpadear {
+    0% { opacity: 1.0; }
+  50% { opacity: 0.0; }
+  100% { opacity: 1.0; }
+}
+.footer{
+  width: 90%;
+  max-width: 100%;
+  min-height: 20vh;
+  max-height: 20vh;
+
+  color:var(--color);
+  
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:space-between;
+
+  padding: 0 1rem 0 2rem;
+  
+
+}
+
+.icon{
+  
+  color:var(--colorHidden);
+}
+
+.theme{
+  position: absolute;
+  top: 1vh;
+  right: 1vw;
+  background: transparent;
+  padding:0;
+  border: 0;
+  color: var(--colorTema);
+}
+
+.theme:hover{
+  cursor: pointer;
+}
+
+.alert{
+  background: transparent;
+  padding:0;
+  border: 0;
+  color:var(--colorHidden);
+
+}
+
+.alert:hover{
+  cursor: pointer;
+}
+
+.imagen{
+  width: 4rem;
+  height: 4rem;
+}
+
+.cinturon{
+  width: 8rem;
+  height: 5rem;
+}
+
+.powerIcon{
+  background: transparent;
+  padding:0;
+  border: 0;
+  color:var(--colorPower);
+}
+.powerIcon:hover{
+  cursor: pointer;
+}
+
+.derecho{
+  
+  background: transparent;
+  padding:0;
+  border: 0;
+  color:var(--backgroundColorHidden);
+
+}
+
+.derecho:hover{
+  cursor: pointer;
+  
+}
+
+.izquierdo{
+   
+  background: transparent;
+  margin-bottom: 3rem;
+  border: 0;
+  color:var(--backgroundColorHidden);
+
+}
+
+.izquierdo:hover{
+  cursor: pointer;
+  
 }

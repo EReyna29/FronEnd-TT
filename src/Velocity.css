@@ -1,0 +1,8 @@
+:root{
+    --color:rgb(187, 109, 255);
+}
+
+.velocidad{
+    font-size: 10rem;
+    color: var(--color)
+}
