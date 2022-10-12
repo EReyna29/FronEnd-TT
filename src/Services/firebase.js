@@ -2,10 +2,7 @@
 import { initializeApp } from "firebase/app";
 
 import {getFirestore,collection,getDocs,doc,query,setDoc, orderBy,limit } from "firebase/firestore";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBUXsUm53egwq_zlMGiUkUin9FKpHCFu5s",
   authDomain: "unidad-de-control.firebaseapp.com",
@@ -26,9 +23,7 @@ export const registroAlerta = async (alerta) =>{
         const docRef = doc(collectionRef,alerta.id);
         await setDoc(docRef,alerta)
     }catch(error){
-
     }
-
 }
 
 export const getAlertas = async () =>{

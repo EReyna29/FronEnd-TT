@@ -1,0 +1,61 @@
+:root{
+    --color:rgb(187, 109, 255);
+    --colorHidden: rgba(168, 69, 255, 0.709);
+    --colorTema: rgb(6, 246, 6);
+    --colorPower: green;
+    --colorRed:rgb(180, 0, 0);
+    --colorOrange:orange;
+    --colorBlue:rgb(0, 166, 255);
+    --colorDisable:rgba(140, 140, 140, 0.353);
+}
+
+.bar{
+    position: relative;
+    min-height: 10vh;
+    max-height: 10vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 0 15rem;
+}
+
+.theme{
+    position: absolute;
+    right: 1vw;
+    background: transparent;
+    padding:0;
+    border: 0;
+    color: var(--colorTema);
+}
+
+.theme:hover{
+    cursor: pointer;
+}
+
+.derecho{
+
+    background: transparent;
+    padding:0;
+    border: 0;
+    color:var(--backgroundColorHidden);
+
+}
+
+.derecho:hover{
+cursor: pointer;
+
+}
+
+.izquierdo{
+    
+    background: transparent;
+    margin-bottom: 3rem;
+    border: 0;
+    color:var(--backgroundColorHidden);
+
+}
+
+.izquierdo:hover{
+    cursor: pointer;
+
+}

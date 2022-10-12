@@ -1,0 +1,95 @@
+:root{
+    --color:rgb(187, 109, 255);
+    --colorRed:rgb(180, 0, 0);
+    --colorGreen:rgb(0, 255, 0);
+    --colorYellow:rgb(255, 255, 0);
+    --colorOrange:orange;
+    --colorDisable:rgba(140, 140, 140, 0.353);
+}
+
+.velocity{
+    width: 31vw;
+    height: 53vh;
+    margin: 3rem 0;
+    max-width: 35vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 1rem;
+    color: var(--color);
+    border: .7rem solid var(--color);
+    border-radius: 50% ;
+    border-bottom: 1px solid transparent;
+}
+
+.datos{
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+.velocidad{
+    font-size: 9rem;
+    color:white;
+}
+
+.disable{
+    color:var(--colorDisable);
+}
+
+.letrakm{
+    color:white;
+}
+
+.greenl{
+    color: var(--colorGreen);
+}
+
+.yellowl{
+    color: var(--colorYellow);
+}
+
+.orangel{
+    color: var(--colorOrange);
+}
+
+.redl{
+    color: var(--colorRed);
+}
+
+
+.intermitentes{
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+}
+
+.altas{
+fill:none;stroke:var(--colorDisable);stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;
+
+}
+.altasContenedor{
+width: 2rem;
+height: 2rem;
+}
+
+.bajas{
+fill:none;stroke:var(--colorDisable);stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;
+
+}
+.bajasContenedor{
+width: 2rem;
+height: 2rem;
+margin-left: 1rem;
+}
+
+.cuartos{
+fill:none;stroke:var(--colorDisable);stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;
+
+}
+.cuartosContenedor{
+width: 3rem;
+height: 3rem;
+margin-left: 1rem;
+}

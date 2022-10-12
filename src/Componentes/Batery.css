@@ -3,12 +3,28 @@
     --backgroundColorCharge:rgb(255, 165, 0);
     --backgroundColorHidden:rgba(168, 69, 255, 0.709);
     --color:rgb(187, 109, 255);
+    --colorRed:rgb(180, 0, 0);
+    --colorGreen:rgb(0, 255, 0);
+    --colorYellow:rgb(255, 255, 0);
+    --colorOrange:orange;
+    --colorBlue:rgb(0, 166, 255);
+    --colorDisable:rgba(140, 140, 140, 0.353);
 }
+
+.batery{
+    width: 35vw;
+    max-width: 35vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  
+  }
 
 .rectangleActive{
     width: 8vw;
     height: 4vh;
-    background: var(--backgroundColor);
+    
     border-radius: .1rem ;
     
     margin-bottom: .2rem;
@@ -17,8 +33,7 @@
 .rectangleActiveCharge{
     width: 8vw;
     height: 4vh;
-
-    background: var(--backgroundColorCharge);
+    background: var(--colorOrange);
     border-radius: .1rem ;
     margin-bottom: .2rem;
 
@@ -28,6 +43,21 @@
     animation-iteration-count: infinite;
 }
 
+.green{
+    background: var(--colorGreen);
+}
+
+.yellow{
+    background: var(--colorYellow);
+}
+
+.orange{
+    background: var(--colorOrange);
+}
+
+.red{
+    background: var(--colorRed);
+}
 @keyframes parpadear {
     0% { opacity: 1.0; }
   50% { opacity: 0.0; }
@@ -37,7 +67,7 @@
     width: 8vw;
     height: 4vh;
 
-    background: var(--backgroundColorHidden);
+    background: var(--colorDisable);
     border-radius: .1rem ;
     
     margin-bottom: .2rem;

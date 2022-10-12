@@ -1,0 +1,79 @@
+:root{
+    --color:rgb(187, 109, 255);
+    --colorHidden: rgba(168, 69, 255, 0.709);
+    --colorTema: rgb(6, 246, 6);
+    --colorPower: green;
+    --colorRed:rgb(180, 0, 0);
+    --colorOrange:orange;
+    --colorBlue:rgb(0, 166, 255);
+    --colorDisable:rgba(140, 140, 140, 0.353);
+  }
+
+
+.squareCentral{
+    width: 17vw;
+    max-width: 17vw;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border:.4rem solid var(--color);
+    
+}
+
+.kmtotales{
+    color:var(--color);
+    font-size: 1.6rem;
+    
+}
+
+.squareCentralGrid{
+    width: 20vw;
+    max-width: 20vw;
+
+    padding: 1rem;
+    display: grid;
+    align-items: center ;
+    justify-items: center;
+    gap: .5rem;
+    grid-template-columns: repeat(2,45%);
+}
+
+.cinturon{
+    fill:none;stroke:var(--colorDisable);stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;
+    
+}
+.cinturonContenedor{
+width: 3rem;
+height: 3rem;
+
+
+}
+
+.puertas{
+fill:none;stroke:var(--colorDisable);stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;
+}
+
+.puertasContenedor{
+width: 3rem;
+height:3rem;
+}
+
+.cajuela{
+fill:none;stroke:var(--colorDisable);stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;
+
+}
+.cajuelaContenedor{
+width: 3rem;
+height: 3rem;
+}
+
+.cofre{
+fill:none;stroke:var(--colorDisable);stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;
+
+}
+.cofreContenedor{
+width:3rem;
+height: 3rem;
+}

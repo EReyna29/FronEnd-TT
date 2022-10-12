@@ -1,15 +1,11 @@
 
 import './App.css';
 import {useState} from 'react'
+import Tablero from './Pages/Tablero'
+import Alertas from './Pages/Alertas'
+import Footer from './Componentes/Footer'
 
-import Tablero from './Tablero.js'
-import Alertas from './Alertas.js'
-import Footer from './Footer.js'
-
-import { VarsProvider } from "./VarsContext";
-
-
-
+import { VarsProvider } from "./Context/VarsContext";
 
 function App() {
 
@@ -22,8 +18,7 @@ function App() {
       <VarsProvider>
         { alert===false ? <Tablero /> : <Alertas />  }
 
-      <Footer alert={alert} setAlert={setAlert}></Footer>
-
+      <Footer alert={alert} setAlert={setAlert}/>
       </VarsProvider>
         
       

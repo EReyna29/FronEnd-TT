@@ -3,7 +3,8 @@
 import React,{useCallback, useEffect, useState} from 'react'
 import './Alertas.css'
 
-import {getAlertas,getNotificaciones} from  './firebase';
+//import {getAlertas,getNotificaciones} from  './firebase';
+import {getAlerts,getNotifications} from '../Services/mongo';
 
 const Alertas = () => {
     const [alertas, setAlertas] = useState([])
@@ -13,11 +14,12 @@ const Alertas = () => {
 
     const obtenerDatos = useCallback( async () => {
         if(handle===true){
-            const alerts = await getAlertas();
+            const alerts = await getAlerts();
             setAlertas(alerts);
         }
         else{
-            const notf = await getNotificaciones();
+            const notf = await getNotifications();
+
             setNotificaciones(notf);
         }
         
@@ -63,7 +65,6 @@ const Alertas = () => {
                         <th>Código</th>
                         <th>Descripcion</th>
                         <th>palanca</th>
-                        <th>Velocidad</th>
                         <th>Temp</th>
                         <th>Bateria</th>
                         <th>Fecha</th>
@@ -77,20 +78,20 @@ const Alertas = () => {
             {handle ?
                 alertas.map( (alert,key) => key%2===0?
                     <tr key={key} className='tabla-fila'>
-                        <td className='tabla-celda'>{alert.id}</td>
+                        <td className='tabla-celda'>{alert.codigo}</td>
                         <td className='tabla-celda'>{alert.nombre}</td>
-                        <td className='tabla-celda'>{alert.desc}</td>
-                        <td className='tabla-celda'>{alert.temp}°C</td>
+                        <td className='tabla-celda'>{alert.descripcion}</td>
+                        <td className='tabla-celda'>{alert.temperatura}°C</td>
                         <td className='tabla-celda'>{alert.carga}%</td>
-                        <td className='tabla-celda'>{alert.fecha.toDate().toString().substring(0,25)}</td>
+                        <td className='tabla-celda'>{alert.fecha}</td>
                     </tr>:
                     <tr key={key} className='tabla-fila-claro'>
-                        <td className='tabla-celda'>{alert.id}</td>
+                        <td className='tabla-celda'>{alert.codigo}</td>
                         <td className='tabla-celda'>{alert.nombre}</td>
-                        <td className='tabla-celda'>{alert.desc}</td>
-                        <td className='tabla-celda'>{alert.temp}°C</td>
+                        <td className='tabla-celda'>{alert.descripcion}</td>
+                        <td className='tabla-celda'>{alert.temperatura}°C</td>
                         <td className='tabla-celda'>{alert.carga}%</td>
-                        <td className='tabla-celda'>{alert.fecha.toDate().toString().substring(0,25)}</td>
+                        <td className='tabla-celda'>{alert.fecha}</td>
                     </tr>
                     
                 )  
@@ -98,21 +99,21 @@ const Alertas = () => {
                 notificaciones.map( (notificacion,key) => key%2===0?
                     <tr key={key} className='tabla-fila'>
                         <td className='tabla-celda'>{notificacion.codigo}</td>
-                        <td className='tabla-celda'>{notificacion.desc}</td>
+                        <td className='tabla-celda'>{notificacion.descripcion}</td>
                         <td className='tabla-celda'>{notificacion.palanca}</td>
-                        <td className='tabla-celda'>{notificacion.velocidad}</td>
-                        <td className='tabla-celda'>{notificacion.temp}°C</td>
+                        
+                        <td className='tabla-celda'>{notificacion.temperatura}°C</td>
                         <td className='tabla-celda'>{notificacion.carga}%</td>
-                        <td className='tabla-celda'>{notificacion.fecha.toDate().toString().substring(0,25)}</td>
+                        <td className='tabla-celda'>{notificacion.fecha}</td>
                     </tr>:
                     <tr key={key} className='tabla-fila-claro'>
                         <td className='tabla-celda'>{notificacion.codigo}</td>
-                        <td className='tabla-celda'>{notificacion.desc}</td>
+                        <td className='tabla-celda'>{notificacion.desccripcion}</td>
                         <td className='tabla-celda'>{notificacion.palanca}</td>
-                        <td className='tabla-celda'>{notificacion.velocidad}</td>
-                        <td className='tabla-celda'>{notificacion.temp}°C</td>
+                        
+                        <td className='tabla-celda'>{notificacion.temperatura}°C</td>
                         <td className='tabla-celda'>{notificacion.carga}%</td>
-                        <td className='tabla-celda'>{notificacion.fecha.toDate().toString().substring(0,25)}</td>
+                        <td className='tabla-celda'>{notificacion.fecha}</td>
                     </tr>
 
                 )            

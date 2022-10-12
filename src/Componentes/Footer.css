@@ -1,0 +1,121 @@
+:root{
+    --color:rgb(187, 109, 255);
+    --colorHidden: rgba(168, 69, 255, 0.709);
+    --colorTema: rgb(6, 246, 6);
+    --colorPower: green;
+    --colorDisable:rgba(140, 140, 140, 0.353);
+    --alertaCarga:rgba(140, 140, 140, 0.353);
+    --alertaBateria:rgba(140, 140, 140, 0.353);
+    --alertaFreno:rgba(140, 140, 140, 0.353);
+}
+
+.footer{
+    width: 100vw;
+    max-width: 100%;
+    min-height: 20vh;
+    max-height: 20vh;
+
+    color:var(--color);
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:center;
+
+}
+
+.contenedor{
+    position: relative;
+    width: 75%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: .4rem solid var(--color);
+    padding: .5rem .8rem;
+}
+
+.iconsWarning{
+    width: 38%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0rem;
+    margin-left: 4rem;
+}
+.powerIcon{
+    position: absolute;
+    left:1rem;
+    background: transparent;
+    padding:0;
+    border: 0;
+    
+    color:var(--colorPower);
+    cursor: pointer;
+}
+
+.km{
+    text-align: left;
+    margin-right: 22rem;
+}
+.alert{
+    width:4rem ;
+    height: 4rem;
+    background: transparent;
+    color:var(--colorOrange);
+    cursor: pointer;
+    right: 2rem;
+    text-align:center;
+    border: 4px solid var(--colorHidden);
+
+}
+.alertCharge{
+    
+    background: transparent;
+    padding:0;
+    border: 0;
+    color:var(--colorHidden);
+    cursor: pointer;
+}
+
+
+
+
+.freno0{
+    fill: var(--alertaFreno);stroke:var(--alertaFreno);stroke-linecap:round;stroke-miterlimit:10;
+}
+.freno1{
+    fill:none;stroke:var(--alertaFreno);stroke-width:30;stroke-miterlimit:10;
+}
+.freno2{
+    fill:none;stroke:var(--alertaFreno);stroke-width:30;stroke-linecap:round;stroke-miterlimit:10;
+}
+.frenoContenedor{
+    height: 3rem;
+    width:3rem;
+    cursor:pointer;
+}
+
+.bateria{
+    fill:none;stroke:var(--alertaBateria);stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;
+}
+
+.bateriaContenedor{
+    height: 3rem;
+    width: 3rem;
+    cursor: pointer;
+}
+
+.carga{
+    fill:none;stroke:var(--alertaCarga);stroke-width:20;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;
+}
+
+.cargaContenedor{
+    height: 3rem;
+    width: 3rem;
+}
+.alertaCarga{
+    stroke:var(--alertaCarga);
+}
+.cargando{
+    stroke:rgb(255, 174, 0);
+}
