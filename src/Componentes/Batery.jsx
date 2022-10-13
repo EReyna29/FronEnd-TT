@@ -1,15 +1,15 @@
 import React from 'react'
 import './Batery.css';
-import { useVars } from "../Context/VarsContext";
 
 import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
 import PercentIcon from '@mui/icons-material/Percent';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useIndicadores } from '../Context/IndicadoresContext';
 
 const Batery = ({charge}) => {
   const niveles=[90,80,70,60,50,40,30,20,10,0];
-  const {vars} = useVars();
+  const {indicadores} = useIndicadores();
   const [color,setColor]=useState();
 
   useEffect(()=>{
@@ -52,7 +52,7 @@ const Batery = ({charge}) => {
   }
   return (
     <div className="batery">
-      {vars.bateria===false? bateriaNormal(): bateriaCargando()
+      {indicadores.cargando===false? bateriaNormal(): bateriaCargando()
       }
 
       <div className='porcentaje'>

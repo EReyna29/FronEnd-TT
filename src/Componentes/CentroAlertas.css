@@ -3,10 +3,16 @@
     --colorHidden: rgba(168, 69, 255, 0.709);
     --colorTema: rgb(6, 246, 6);
     --colorPower: green;
-    --colorRed:rgb(180, 0, 0);
-    --colorOrange:orange;
-    --colorBlue:rgb(0, 166, 255);
     --colorDisable:rgba(140, 140, 140, 0.353);
+
+    --alertaCinturon:rgba(140, 140, 140, 0.353);
+    --alertaCajuela:rgba(140, 140, 140, 0.353);
+    --alertaCofre:rgba(140, 140, 140, 0.353);
+    
+    --alertaPDIzquierda:rgba(140, 140, 140, 0.353);
+    --alertaPTIzquierda:rgba(140, 140, 140, 0.353);
+    --alertaPDDerecha:rgba(140, 140, 140, 0.353);
+    --alertaPTDerecha:rgba(140, 140, 140, 0.353);
   }
 
 
@@ -41,39 +47,61 @@
 }
 
 .cinturon{
-    fill:none;stroke:var(--colorDisable);stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;
+    fill:none;stroke:var(--alertaCinturon);stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;
     
 }
 .cinturonContenedor{
 width: 3rem;
 height: 3rem;
+cursor: pointer;
 
 
 }
 
 .puertas{
-fill:none;stroke:var(--colorDisable);stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;
+    fill:none;stroke:var(--colorDisable);stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;
+}
+.puertaDI{
+    fill:none;stroke:var(--alertaPDIzquierda);stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;
+    cursor: pointer;
+}
+.puertaDD{
+    fill:none;stroke:var(--alertaPDDerecha);stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;
+    cursor: pointer;
+}
+.puertaTI{
+    fill:none;stroke:var(--alertaPTIzquierda);stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;
+    cursor: pointer;
+}
+.puertaTD{
+    fill:none;stroke:var(--alertaPTDerecha);stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;
+    cursor: pointer;
 }
 
+
+
+
 .puertasContenedor{
-width: 3rem;
-height:3rem;
+    width: 3rem;
+    height:3rem;
 }
 
 .cajuela{
-fill:none;stroke:var(--colorDisable);stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;
+    fill:none;stroke:var(--alertaCajuela);stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;
 
 }
 .cajuelaContenedor{
-width: 3rem;
-height: 3rem;
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
 }
 
 .cofre{
-fill:none;stroke:var(--colorDisable);stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;
+    fill:none;stroke:var(--alertaCofre);stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;
 
 }
 .cofreContenedor{
-width:3rem;
-height: 3rem;
+    width:3rem;
+    height: 3rem;
+    cursor: pointer;
 }

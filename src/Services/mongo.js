@@ -3,8 +3,8 @@ export const getAlerts = async () =>{
     try{
         const alertas = await fetch('http://localhost:3001/api/alertas')
         .then(response => response.json())
-
-        return alertas;
+        
+        return alertas.reverse();
     }catch(error){
         console.error(error);
     }
@@ -17,17 +17,15 @@ export const getNotifications = async () =>{
         const notificaciones = await fetch('http://localhost:3001/api/notificaciones')
         .then(response => response.json());
 
-        return notificaciones;
+        return notificaciones.reverse();
     }catch(error){
         console.error(error);
     }
 
 }
 export const registroAlerta = async(alerta) =>{
-    
+
     try{
-        console.log(alerta);
-        console.log(JSON.stringify(alerta))
         await fetch('http://localhost:3001/api/alertas',{
             method: 'POST',
             body: JSON.stringify({
@@ -43,23 +41,23 @@ export const registroAlerta = async(alerta) =>{
                 "Content-type": "application/json"
             }
         })
-      .then(response => response.json())
+        .then(response => response.json())
     }catch(error){
     }
 }
 
 export const registroNotificacion = async (notificacion) =>{
+    console.log(notificacion)
     try{
         await fetch('http://localhost:3001/api/notificaciones',{
             method: 'POST',
             body: JSON.stringify({
                 codigo: notificacion.codigo,
-                nombre: notificacion.nombre,
                 descripcion: notificacion.descripcion,
                 carga: notificacion.carga,
-                palanca: "N",
+                palanca: notificacion.palanca,
                 temperatura: notificacion.temperatura,
-                velocidad: notificacion.velocidad
+                fecha:notificacion.fecha
             }),
             headers: {
                 "Content-type": "application/json"

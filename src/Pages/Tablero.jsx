@@ -2,97 +2,112 @@ import React, { useCallback } from 'react'
 import {useState,useEffect} from 'react'
 import { useVars } from "../Context/VarsContext";
 
-
 import '../App.css';
 import Batery from '../Componentes/Batery'
 
 import Velocity from '../Componentes/Velocity'
-//import {registroAlerta,registroNotificacion} from  './mongo';
 import {registroAlerta} from  '../Services/mongo';
 import BarraSuperior from '../Componentes/BarraSuperior';
 import CentroAlertas from '../Componentes/CentroAlertas';
+import { handleFrenoMano } from '../Services/handleEvents';
+import { useIndicadores } from '../Context/IndicadoresContext';
 
-
-const position = ["P","D","N","R"];
+// const position = ["P","D","N","R"];
 
 const alerta={
   id:0,
   nombre:"",
-  temp:0.0,
+  temperatura:0.0,
   carga:0.0,
   alarma:false,
   fecha:null,
-  desc:""
+  descripcion:""
 }
-
-
-
+// const getRandomArbitrary=(min, max)=> {
+//   return Math.random() * (max - min) + min;
+// }
 const Tablero = () => {
     
     const {vars,setVars} = useVars();
-    const [charge, setCharge] = useState();
-    const [degree, setDegree] = useState();
-    const [velocidad, setVelocidad] = useState();
-    const [palanca,setPalanca]=useState();
-    const [freno,setFreno]=useState(true);
+    const {indicadores,setIndicadores}=useIndicadores();
+    const [charge, setCharge] = useState(vars.carga);
+    const [degree, setDegree] = useState(vars.temperatura);
+    const [velocidad, setVelocidad] = useState(vars.velocidad);
+    const [palanca,setPalanca]=useState(vars.palanca);
+    const [frenoMano,setFrenoMano]=useState(true);
 
-    const getRandomArbitrary=(min, max)=> {
-      return Math.random() * (max - min) + min;
-    }
+ 
     //Se agrega las alertas 
-    const addEvent =useCallback( async () =>{
-      if(vars.temperatura===true){
-        alerta.codigo= "AT" + Date.now().toString();
-        alerta.nombre="Temperatura alta"
-        alerta.descripcion="La temperatura del motor se elevo a " + degree + "°C";
-        alerta.temperatura=degree;
-        alerta.carga=charge;
-        alerta.fecha=new Date(Date.now()).toUTCString();
-
-      }
-      else if(vars.carga===true){
+    const addEvent =useCallback( () =>{
+      if(indicadores.carga===true){
         alerta.codigo= "AC" + Date.now().toString();
-        alerta.nombre="Bateria baja"
-        alerta.descripcion="La carga del banco de baterias bajo a " + charge + "%";
-        alerta.temperatura=degree;
-        alerta.carga=charge;
-        alerta.fecha=new Date(Date.now()).toUTCString();
-
+        alerta.nombre="Carga baja"
+        alerta.descripcion="La carga del banco de baterias bajo a " + vars.carga + "%";
+        alerta.temperatura=vars.temperatura;
+        alerta.carga=vars.carga;
+        alerta.fecha=new Date(Date.now()).toString();
       }
-      await registroAlerta(alerta)
+      
+      registroAlerta(alerta);
       //await registroNotificacion(alerta)
 
-  },[charge,degree,vars.temperatura,vars.carga])
+  },[indicadores.carga])
 
-    //Se genera alearoriamente los valores para el tablero
-    useEffect(() => {
-      setCharge(Math.round(getRandomArbitrary(0,100)));
-      setDegree(Math.round(getRandomArbitrary(80,130)));
-      setVelocidad(Math.round(getRandomArbitrary(20,100)));
-      setPalanca(position[Math.round(getRandomArbitrary(1,3))]);
-    }, [])
+    // useEffect(()=>{
+    //   setCharge(Math.round(getRandomArbitrary(0,100)))
+    //   setDegree(Math.round(getRandomArbitrary(50,100)))
+    //   setVelocidad(Math.round(getRandomArbitrary(20,100)))
+    //   setPalanca(position[Math.round(getRandomArbitrary(1,3))])
+    //     const variables = {
+    //       carga:charge,
+    //       temperatura:degree,
+    //       velocidad:velocidad,
+    //       palanca:palanca
+    //     }
+    //     console.log(variables)
+    //     setVars(variables)
+      
+    // },[])
 
     //Valida los indicadores del tablero
     useEffect(() => {
-      let vars,carga=false,temp=false,pal=false;
+      let indicadores,carga=false,temp=false,pal=false;
       if(charge<=50)
         carga=true;
-      if(degree>=120)
+      if(degree>=80)
         temp=true;
       if(palanca==="P")
         pal=true;
 
-      vars={"carga":carga,"bateria":false,"temperatura":temp,"freno":freno,"home":pal};
+      indicadores={"carga":carga,
+      "bateria":false,
+      "temperatura":temp,
+      "freno":false,
+      "frenoMano":frenoMano,
+      "home":pal,
+      "cargando":false,
+      "lucesAltas":false,
+      "lucesBajas":false,
+      "lucesCuartos":false,
+      "cajuela":false,
+      "cofre":false,
+      "puertaDI":false,
+      "puertaDD":false,
+      "puertaTI":false,
+      "puertaTD":false
+      };
 
-      setVars(vars); 
+      setIndicadores(indicadores); 
       
       if(carga || temp){
         addEvent();
       }
+    }, [charge,degree,palanca])
 
-      
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [setVars,charge,degree,velocidad,palanca,freno])
+    const handleAlertaFrenoMano =()=>{
+      setFrenoMano(!frenoMano)
+      handleFrenoMano(frenoMano);
+    }
     
     
   return (
@@ -106,7 +121,7 @@ const Tablero = () => {
             <button className="palanca" onClick={()=>setPalanca("P")}>
               <h1>{palanca}</h1>
             </button>
-            <button className='alertFreno' onClick={()=>setFreno(!freno)}>
+            <button className='alertFreno' onClick={()=>handleAlertaFrenoMano()}>
               {/* svg de freno de Mano */}
               <svg version="1.1" className='frenoManoContenedor'
                 xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px" viewBox="0 0 612 612">

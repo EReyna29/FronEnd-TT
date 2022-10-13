@@ -1,13 +1,202 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useIndicadores } from '../Context/IndicadoresContext';
+import { useVars } from '../Context/VarsContext';
+import { handleCinturon,
+    handlePuertaDelanteraIzquierda,
+    handlePuertaDelanteraDerecha,
+    handlePuertaTraseraIzquierda,
+    handlePuertaTraseraDerecha,
+    handleCajuela,
+    handleCofre } from '../Services/handleEvents';
+import { registroNotificacion } from '../Services/mongo';
 import './CentroAlertas.css'
 
+const notificacion={
+    codigo:0,
+    palanca:"",
+    temperatura:0.0,
+    carga:0.0,
+    fecha:null,
+    descripcion:""
+}
+
 const CentroAlertas = () => {
+    const {vars}=useVars();
+    const {indicadores,setIndicadores}=useIndicadores();
     const [kmTotales]=useState(0);
+    const [cinturon,setCinturon]=useState(false);
+    const [puertaDI,setPuertaDI]=useState(false);
+    const [puertaDD,setPuertaDD]=useState(false);
+    const [puertaTI,setPuertaTI]=useState(false);
+    const [puertaTD,setPuertaTD]=useState(false);
+    const [cajuela,setCajuela]=useState(false);
+    const [cofre,setCofre]=useState(false);
+
+    useEffect(()=>{
+        handleCajuela(cajuela);
+        setIndicadores({...indicadores,cajuela:!cajuela});
+
+    },[cajuela])
+
+    useEffect(()=>{
+        handleCofre(cofre);
+        setIndicadores({...indicadores,cofre:!cofre});
+
+    },[cofre])
+
+    useEffect(()=>{
+        handleCinturon(cinturon);
+        setIndicadores({...indicadores,cinturon:!cinturon});
+
+    },[cinturon])
+
+    useEffect(()=>{
+        handlePuertaDelanteraIzquierda(puertaDI);
+        setIndicadores({...indicadores,puertaDI:!puertaDI});
+
+    },[puertaDI])
+
+    useEffect(()=>{
+        handlePuertaTraseraIzquierda(puertaTI);
+        setIndicadores({...indicadores,puertaTI:!puertaTI});
+
+    },[puertaTI])
+
+    useEffect(()=>{
+        handlePuertaDelanteraDerecha(puertaDD);
+        setIndicadores({...indicadores,puertaDD:!puertaDD});
+
+    },[puertaDD])
+
+    useEffect(()=>{
+        handlePuertaTraseraDerecha(puertaTD);
+        setIndicadores({...indicadores,puertaTD:!puertaTD});
+
+    },[puertaTD])
+
+
+    const handleAlertaCajuela =(isOpen)=>{
+        setCajuela(!cajuela);
+        if(isOpen)
+            agregarNotificacionCajuela()
+    }
+
+    const agregarNotificacionCajuela = () =>{
+        notificacion.codigo= "NCA" + Date.now().toString();
+        notificacion.palanca=vars.palanca;
+        notificacion.descripcion="La cajuela esta abierta";
+        notificacion.temperatura=vars.temperatura;
+        notificacion.carga=vars.carga;
+        notificacion.fecha=new Date(Date.now()).toString();
+
+        registroNotificacion(notificacion);
+    }
+    const handleAlertaCofre =(isOpen)=>{
+        setCofre(!cofre)
+        if(isOpen)
+            agregarNotificacionCofre()
+    }
+
+    const agregarNotificacionCofre = () =>{
+        notificacion.codigo= "NCO" + Date.now().toString();
+        notificacion.palanca=vars.palanca;
+        notificacion.descripcion="El cofre esta abierto";
+        notificacion.temperatura=vars.temperatura;
+        notificacion.carga=vars.carga;
+        notificacion.fecha=new Date(Date.now()).toString();
+
+        registroNotificacion(notificacion);
+    }
+    const handleAlertaCinturon =(isOpen)=>{
+        setCinturon(!cinturon)
+        if(isOpen)
+            agregarNotificacionCinturon()
+    }
+
+    const agregarNotificacionCinturon = () =>{
+        notificacion.codigo= "NCI" + Date.now().toString();
+        notificacion.palanca=vars.palanca;
+        notificacion.descripcion="El cinturon esta abierto";
+        notificacion.temperatura=vars.temperatura;
+        notificacion.carga=vars.carga;
+        notificacion.fecha=new Date(Date.now()).toString();
+
+        registroNotificacion(notificacion);
+    }
+
+    const handleAlertaPuertaDI =(isOpen)=>{
+        setPuertaDI(!puertaDI)
+        if(isOpen)
+            agregarNotificacionPDI()
+    }
+
+    const agregarNotificacionPDI = () =>{
+        notificacion.codigo= "NPDI" + Date.now().toString();
+        notificacion.palanca=vars.palanca;
+        notificacion.descripcion="Puerta Delantera Piloto abierta";
+        notificacion.temperatura=vars.temperatura;
+        notificacion.carga=vars.carga;
+        notificacion.fecha=new Date(Date.now()).toString();
+
+        registroNotificacion(notificacion);
+    }
+    const handleAlertaPuertaDD =(isOpen)=>{
+        setPuertaDD(!puertaDD)
+        if(isOpen)
+            agregarNotificacionPDD()
+    }
+
+    const agregarNotificacionPDD = () =>{
+        notificacion.codigo= "NPDD" + Date.now().toString();
+        notificacion.palanca=vars.palanca;
+        notificacion.descripcion="Puerta Delantera Copiloto abierta";
+        notificacion.temperatura=vars.temperatura;
+        notificacion.carga=vars.carga;
+        notificacion.fecha=new Date(Date.now()).toString();
+
+        registroNotificacion(notificacion);
+    }
+
+    const handleAlertaPuertaTI =(isOpen)=>{
+        setPuertaTI(!puertaTI)
+        if(isOpen)
+            agregarNotificacionPTI()
+    }
+
+    const agregarNotificacionPTI = () =>{
+        notificacion.codigo= "NPTI" + Date.now().toString();
+        notificacion.palanca=vars.palanca;
+        notificacion.descripcion="Puerta Trasera Piloto abierta";
+        notificacion.temperatura=vars.temperatura;
+        notificacion.carga=vars.carga;
+        notificacion.fecha=new Date(Date.now()).toString();
+
+        registroNotificacion(notificacion);
+    }
+
+    const handleAlertaPuertaTD =(isOpen)=>{
+        setPuertaTD(!puertaTD)
+        if(isOpen)
+            agregarNotificacionPTD()
+    }
+
+    const agregarNotificacionPTD = () =>{
+        notificacion.codigo= "NPTD" + Date.now().toString();
+        notificacion.palanca=vars.palanca;
+        notificacion.descripcion="Puerta Trasera Copiloto abierta";
+        notificacion.temperatura=vars.temperatura;
+        notificacion.carga=vars.carga;
+        notificacion.fecha=new Date(Date.now()).toString();
+
+        registroNotificacion(notificacion);
+    }
+
+    
     return (
         <div className="squareCentral">
             <div className="squareCentralGrid"> 
             {/* svg de cinturon*/}
-            <svg version="1.1" id="Capa_2" className='cinturonContenedor'
+            <svg version="1.1" id="Capa_2" className='cinturonContenedor' onClick={()=>handleAlertaCinturon(!indicadores.cinturon)}
             xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px" viewBox="0 0 612 612">
             
             <switch>
@@ -27,13 +216,13 @@ const CentroAlertas = () => {
             <switch>
             <g >
                 {/* puerta conductor delantera*/}
-                <path className="puertas" d="M189,231.33L101.67,282c0,0-11.33,6.67-5.33,15.33c0,0,3.33,10.67,16.67,5.33L189,258"/>
+                <path className="puertaDI" onClick={()=>handleAlertaPuertaDI(!indicadores.puertaDI)} d="M189,231.33L101.67,282c0,0-11.33,6.67-5.33,15.33c0,0,3.33,10.67,16.67,5.33L189,258"/>
                 {/* puerta conductor trasera*/}
-                <path className="puertas" d="M189,331.75l-87.33,50.67c0,0-11.33,6.67-5.33,15.33c0,0,3.33,10.67,16.67,5.33l76-44.67"/>
+                <path className="puertaTI" onClick={()=>handleAlertaPuertaTI(!indicadores.puertaTI)} d="M189,331.75l-87.33,50.67c0,0-11.33,6.67-5.33,15.33c0,0,3.33,10.67,16.67,5.33l76-44.67"/>
                 {/* puerta copiloto delantera*/}
-                <path className="puertas" d="M430.8,235.17l87.33,50.67c0,0,11.33,6.67,5.33,15.33c0,0-3.33,10.67-16.67,5.33l-76-44.67"/>
+                <path className="puertaDD" onClick={()=>handleAlertaPuertaDD(!indicadores.puertaDD)} d="M430.8,235.17l87.33,50.67c0,0,11.33,6.67,5.33,15.33c0,0-3.33,10.67-16.67,5.33l-76-44.67"/>
                 {/* puerta copiloto trasera*/}
-                <path className="puertas" d="M430.8,331.75l87.33,50.67c0,0,11.33,6.67,5.33,15.33c0,0-3.33,10.67-16.67,5.33l-76-44.67"/>
+                <path className="puertaTD" onClick={()=>handleAlertaPuertaTD(!indicadores.puertaTD)}d="M430.8,331.75l87.33,50.67c0,0,11.33,6.67,5.33,15.33c0,0-3.33,10.67-16.67,5.33l-76-44.67"/>
                 <g>
                 <path className="puertas" d="M294.33,246.67h89.33L400.33,186c0,0-76-42-178.67,0l14,60.67H261"/>
                 <path className="puertas" d="M255.67,476.67h108l12.67-37.33c0,0-55.33-29.33-132.67,0L255.67,476.67z"/>
@@ -51,7 +240,7 @@ const CentroAlertas = () => {
                 // .cajuela{}
                 // .activa{}
             */}
-            <svg version="1.1" id="Capa_2" className='cajuelaContenedor'
+            <svg version="1.1" id="Capa_2" className='cajuelaContenedor' onClick={()=>handleAlertaCajuela(!indicadores.cajuela)}
             xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px" viewBox="0 0 612 612">
             <switch>
             <g >
@@ -77,7 +266,7 @@ const CentroAlertas = () => {
             </switch>
             </svg>
             {/* svg de cofre */}
-            <svg version="1.1" id="Capa_2" className='cofreContenedor'
+            <svg version="1.1" id="Capa_2" className='cofreContenedor' onClick={()=>handleAlertaCofre(!indicadores.cofre)}
             xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px" viewBox="0 0 612 612"
             >
 

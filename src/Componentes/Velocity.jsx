@@ -1,10 +1,27 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
+import { useIndicadores } from '../Context/IndicadoresContext';
+import { handleAltas, handleBajas, handleCuartos } from '../Services/handleEvents';
 import './Velocity.css'
 
 
 const Velocity = ({velocidad}) => {
   const [color,setColor] = useState("");
+  const {indicadores,setIndicadores} = useIndicadores();
+
+  const handleLucesAltas= ()=>{
+    handleAltas(indicadores.lucesAltas)
+    setIndicadores({...indicadores,"lucesAltas":!indicadores.lucesAltas});
+  }
+  const handleLucesBajas=()=>{
+    handleBajas(indicadores.lucesBajas)
+    setIndicadores({...indicadores,"lucesBajas":!indicadores.lucesBajas});
+  }
+
+  const handleLucesCuartos=()=>{
+    handleCuartos(indicadores.lucesCuartos)
+    setIndicadores({...indicadores,"lucesCuartos":!indicadores.lucesCuartos});
+  }
 
   useEffect(()=>{
     if(velocidad>80){
@@ -13,11 +30,11 @@ const Velocity = ({velocidad}) => {
   },[velocidad])
   return (
     <div className="velocity">
-        <h1 className={`velocidad ${color}`}>{velocidad} </h1>
-        <h2 className={`letrakm ${color}`}>km/h</h2>
+      <h1 className={`velocidad ${color}`}>{velocidad} </h1>
+      <h2 className={`letrakm ${color}`}>km/h</h2>
       <div className='intermitentes'>
             {/*svg de luces altas */}
-            <svg version="1.1" id="Capa_2" className='altasContenedor'
+            <svg version="1.1" id="Capa_2" className='altasContenedor' onClick={()=>handleLucesAltas()}
               xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 612 612">
             <switch>
               <g >
@@ -31,7 +48,7 @@ const Velocity = ({velocidad}) => {
             </switch>
             </svg>
             {/*svg de luces bajas */}
-            <svg version="1.1" id="Capa_2" className='bajasContenedor'
+            <svg version="1.1" id="Capa_2" className='bajasContenedor' onClick={()=>handleLucesBajas()}
               xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px" viewBox="0 0 612 612">
             <switch>
               <g >
@@ -47,7 +64,7 @@ const Velocity = ({velocidad}) => {
             </switch>
             </svg>
             {/*svg de luces cuartos */}
-            <svg version="1.1" id="Capa_2" className='cuartosContenedor'
+            <svg version="1.1" id="Capa_2" className='cuartosContenedor' onClick={()=>handleLucesCuartos()}
               xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 612 612">
             <switch>
               <g>

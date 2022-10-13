@@ -2,19 +2,47 @@ import React, { useEffect } from 'react'
 import './Temperature.css';
 
 import ThermostatIcon from '@mui/icons-material/Thermostat';
+import { useVars } from '../Context/VarsContext';
+import { registroAlerta } from '../Services/mongo';
+import { useIndicadores } from '../Context/IndicadoresContext';
 
-
+const alerta={
+    id:0,
+    nombre:"",
+    temperatura:0.0,
+    carga:0.0,
+    fecha:null,
+    descripcion:""
+  }
 const Temperature = ({degree}) => {
-    useEffect(()=>{
-        handleAlertaCarga(degree)
-    },[degree])
-    
-    const handleAlertaCarga=(degree)=>{
+    const {vars}=useVars();
+    const {indicadores,setIndicadores} = useIndicadores();
+
+    const handleAlertaCarga=()=>{
         const style=document.documentElement.style;
-        if(degree<100)
+        console.log(vars.temperatura)
+        if(vars.temperatura<75)
         style.setProperty('--alertaTemperatura','rgba(140, 140, 140, 0.353)');
-        else
-        style.setProperty('--alertaTemperatura','red');
+        else{
+            style.setProperty('--alertaTemperatura','red');
+            setIndicadores({...indicadores,"temperatura":true})
+            agregarAlerta();
+        }
+    }
+
+    useEffect(()=>{
+        handleAlertaCarga(vars.temperatura)
+    },[])
+    
+    const agregarAlerta = () =>{
+        alerta.codigo= "AT" + Date.now().toString();
+        alerta.nombre="Temperatura alta"
+        alerta.descripcion="La temperatura del motor se elevo a " + vars.temperatura + "°C";
+        alerta.temperatura=vars.temperatura;
+        alerta.carga=vars.carga;
+        alerta.fecha=new Date(Date.now()).toString();
+        
+        registroAlerta(alerta);   
     }
 
     return (

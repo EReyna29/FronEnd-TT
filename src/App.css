@@ -7,6 +7,7 @@
   --colorOrange:orange;
   --colorBlue:rgb(0, 166, 255);
   --colorDisable:rgba(140, 140, 140, 0.353);
+  --alertaFrenoMano: rgba(140, 140, 140, 0.353);
 }
 
 *{
@@ -30,12 +31,13 @@
   stroke:var(--color)
 }
 
-.st1{fill:none;stroke:var(--colorDisable);stroke-width:30;stroke-miterlimit:10;}
-.st2{fill:var(--colorDisable) ;stroke:var(--colorDisable);stroke-width:15;stroke-linecap:round;stroke-miterlimit:10;}
-.st3{fill:none;stroke:var(--colorDisable);stroke-width:30;stroke-linecap:round;stroke-miterlimit:10;}
+.st1{fill:none;stroke:var(--alertaFrenoMano);stroke-width:30;stroke-miterlimit:10;}
+.st2{fill:var(--alertaFrenoMano) ;stroke:var(--alertaFrenoMano);stroke-width:15;stroke-linecap:round;stroke-miterlimit:10;}
+.st3{fill:none;stroke:var(--alertaFrenoMano);stroke-width:30;stroke-linecap:round;stroke-miterlimit:10;}
 .frenoManoContenedor{
   width: 4rem;
   height: 4rem;
+  cursor: pointer;
 }
 
 .alertFreno{

@@ -1,5 +1,3 @@
-
-
 import React,{useCallback, useEffect, useState} from 'react'
 import './Alertas.css'
 
@@ -28,8 +26,7 @@ const Alertas = () => {
     },[handle])
 
     useEffect(() => {
-        obtenerDatos(); 
-        
+        obtenerDatos();    
     },[handle])
     
   return (
@@ -45,7 +42,7 @@ const Alertas = () => {
             "backgroundColor": "rgba(255, 183, 0, 0.779)"}:{}} >Notificaciones</button>
         </div>
         
-
+        <div className="body">
         <table className='tabla'>
                 {handle 
                 ?
@@ -83,7 +80,7 @@ const Alertas = () => {
                         <td className='tabla-celda'>{alert.descripcion}</td>
                         <td className='tabla-celda'>{alert.temperatura}°C</td>
                         <td className='tabla-celda'>{alert.carga}%</td>
-                        <td className='tabla-celda'>{alert.fecha}</td>
+                        <td className='tabla-celda'>{alert.fecha.toString().substring(4,21)}</td>
                     </tr>:
                     <tr key={key} className='tabla-fila-claro'>
                         <td className='tabla-celda'>{alert.codigo}</td>
@@ -91,7 +88,7 @@ const Alertas = () => {
                         <td className='tabla-celda'>{alert.descripcion}</td>
                         <td className='tabla-celda'>{alert.temperatura}°C</td>
                         <td className='tabla-celda'>{alert.carga}%</td>
-                        <td className='tabla-celda'>{alert.fecha}</td>
+                        <td className='tabla-celda'>{alert.fecha.toString().substring(4,21)}</td>
                     </tr>
                     
                 )  
@@ -104,16 +101,16 @@ const Alertas = () => {
                         
                         <td className='tabla-celda'>{notificacion.temperatura}°C</td>
                         <td className='tabla-celda'>{notificacion.carga}%</td>
-                        <td className='tabla-celda'>{notificacion.fecha}</td>
+                        <td className='tabla-celda'>{notificacion.fecha.toString().substring(4,21)}</td>
                     </tr>:
                     <tr key={key} className='tabla-fila-claro'>
                         <td className='tabla-celda'>{notificacion.codigo}</td>
-                        <td className='tabla-celda'>{notificacion.desccripcion}</td>
+                        <td className='tabla-celda'>{notificacion.descripcion}</td>
                         <td className='tabla-celda'>{notificacion.palanca}</td>
                         
                         <td className='tabla-celda'>{notificacion.temperatura}°C</td>
                         <td className='tabla-celda'>{notificacion.carga}%</td>
-                        <td className='tabla-celda'>{notificacion.fecha}</td>
+                        <td className='tabla-celda'>{notificacion.fecha.toString().substring(4,21)}</td>
                     </tr>
 
                 )            
@@ -121,9 +118,9 @@ const Alertas = () => {
                     
             </tbody>
         </table>
-        
 
         </div>
+    </div>
     
     </>
   )

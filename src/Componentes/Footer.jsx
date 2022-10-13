@@ -1,53 +1,75 @@
 import React, { useEffect, useState } from 'react';
-import { useVars } from '../Context/VarsContext.js';
-
 
 import WarningIcon from '@mui/icons-material/WarningRounded';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 
 import './Footer.css'
+import { handleAlertaCarga, handleBateria, handleFreno } from '../Services/handleEvents.js';
+import { useIndicadores } from '../Context/IndicadoresContext.jsx';
+import { registroAlerta } from '../Services/mongo';
+import { useVars } from '../Context/VarsContext';
 
-
+const alerta={
+    id:0,
+    nombre:"",
+    temperatura:0.0,
+    carga:0.0,
+    fecha:null,
+    descripcion:""
+}
 const Footer = ({alert,setAlert}) => {
-    const {vars,setVars}= useVars();
+    const {vars}=useVars()
+    const {indicadores,setIndicadores}= useIndicadores();
     const [power,setPower]= useState(1);
     const [km]= useState(0);
 
     useEffect(()=>{
-        handleAlertaCarga(vars.carga)
-    },[vars.carga])
+        handleAlertaCarga(indicadores.carga)
+    },[indicadores.carga])
     
-    const handleAlertaCarga=(carga)=>{
-        const style=document.documentElement.style;
-        if(carga===false)
-        style.setProperty('--alertaCarga','rgba(140, 140, 140, 0.353)');
-        else
-        style.setProperty('--alertaCarga','red');
-    }
 
     const handleAlertaBateria=(bateria)=>{
-        const style=document.documentElement.style;
-        if(bateria===false)
-        style.setProperty('--alertaBateria','rgba(140, 140, 140, 0.353)');
-        else
-        style.setProperty('--alertaBateria','red');
-        setVars({...vars,"bateria":!vars.bateriaAux});
+        handleBateria(bateria)
+        setIndicadores({...indicadores,"bateria":!indicadores.bateria});
+        if(bateria)
+            agregarAlertaBateria()
     }
 
+    const agregarAlertaBateria = () =>{
+        alerta.codigo= "AB" + Date.now().toString();
+        alerta.nombre="Bateria baja"
+        alerta.descripcion="La bateria auxiliar no tiene la suficiente carga";
+        alerta.temperatura=vars.temperatura;
+        alerta.carga=vars.carga;
+        alerta.fecha=new Date(Date.now()).toString();
+        
+        registroAlerta(alerta);   
+    }
     const handleAlertaFreno=(freno)=>{
-        const style=document.documentElement.style;
-        if(freno===false)
-        style.setProperty('--alertaFreno','rgba(140, 140, 140, 0.353)');
-        else
-        style.setProperty('--alertaFreno','red');
-        setVars({...vars,"freno":!vars.freno});
+        handleFreno(freno)
+        setIndicadores({...indicadores,"freno":!indicadores.freno});
+        if(freno){
+            agregarAlertaFreno();
+        }
+        
+    }
+
+    const agregarAlertaFreno = () =>{
+        alerta.codigo= "AF" + Date.now().toString();
+        alerta.nombre="Liquido de Freno bajo"
+        alerta.descripcion="El líquido de Freno esta por debajo del nivel requerido";
+        alerta.temperatura=vars.temperatura;
+        alerta.carga=vars.carga;
+        alerta.fecha=new Date(Date.now()).toString();
+
+        registroAlerta(alerta);
+    
     }
     
+    
     const handleCharge = ()=>{
-        let obj={"carga":!vars.carga,"bateria":vars.bateria, "temperatura":vars.temperatura,"freno":vars.freno,"home":vars.home};
-        setVars(obj);
-        
+        setIndicadores({...indicadores,"cargando":!indicadores.cargando});   
     }
 
     const handlePowerIcon=()=>{
@@ -86,8 +108,8 @@ const Footer = ({alert,setAlert}) => {
                                 <g>
                                     <g id="Capa_2">
                                         {
-                                            vars.bateria===false?
-                                            vars.carga===false? 
+                                            indicadores.cargando===false?
+                                            indicadores.carga===false? 
                                             <>
                                                 <path className="carga" d="M123,146.67v-41.33h108.67v41.33c0,0,66-12.67,65.33,53.33l0.01,266.67c0,0-3.34,42-62.67,43.33h-132
                                                     c0,0-40,0.67-42-46.67L63,204.67C63,204.67,55,147.33,123,146.67z"/>
@@ -124,7 +146,7 @@ const Footer = ({alert,setAlert}) => {
                     </button>
 
                     {/**SVG bateria*/}
-                    <svg version="1.1" id="Capa_2" className='bateriaContenedor' onClick={()=>handleAlertaBateria(!vars.bateria)}
+                    <svg version="1.1" id="Capa_2" className='bateriaContenedor' onClick={()=>handleAlertaBateria(!indicadores.bateria)}
                         xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 612 612">
                         <switch>
                             <g >
@@ -133,12 +155,12 @@ const Footer = ({alert,setAlert}) => {
                                     135,249.33 135,476.78 364.02,476.78 		"/>
                                 <polyline className="bateria" points="251,196.67 263,171.33 351,171.33 362.33,196.67 		"/>
                                 <g>
-                                    <rect x="149.67" y="166.67" class="st0" width="69.33" height="30"/>
-                                    <rect x="166.33" y="134" class="st0" width="39.33" height="32.67"/>
+                                    <rect x="149.67" y="166.67" className="st0" width="69.33" height="30"/>
+                                    <rect x="166.33" y="134" className="st0" width="39.33" height="32.67"/>
                                 </g>
                                 <g>
-                                    <rect x="391.67" y="166.67" class="st0" width="69.33" height="30"/>
-                                    <rect x="408.33" y="134" class="st0" width="39.33" height="32.67"/>
+                                    <rect x="391.67" y="166.67" className="st0" width="69.33" height="30"/>
+                                    <rect x="408.33" y="134" className="st0" width="39.33" height="32.67"/>
                                 </g>
                                 <line className="bateria" x1="171.67" y1="287.33" x2="199" y2="287.33"/>
                                 <line className="bateria" x1="414.33" y1="287.33" x2="441.67" y2="287.33"/>
@@ -158,7 +180,7 @@ const Footer = ({alert,setAlert}) => {
 
 
                     {/**SVG liquido de frenos*/}
-                    <svg version="1.1" className='frenoContenedor' onClick={()=>handleAlertaFreno(!vars.freno)}
+                    <svg version="1.1" className='frenoContenedor' onClick={()=>handleAlertaFreno(!indicadores.freno)}
                     xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px" viewBox="0 0 612 612" >
                     <g id="Capa_3">
                         <path className="freno0" d="M147,282.7c0,0,13.3-5.3,28,12l16,21.3c0,0,17.3,22,32.7-2.7l16.7-21.3c0,0,15.3-23.3,34,1.3l16.7,23.3
@@ -175,8 +197,8 @@ const Footer = ({alert,setAlert}) => {
                 </div>
                 
                 <h2 className='km'>TRIP {km} </h2>
-                <button className='alert' onClick={()=>setAlert(!alert)} disabled={!vars.home}>
-                    {alert===false? <WarningIcon sx={vars.home===false? {fontSize:"3rem"}:{fontSize:"3rem",color:"orange"}} />
+                <button className='alert' onClick={()=>setAlert(!alert)} disabled={!indicadores.home}>
+                    {alert===false? <WarningIcon sx={indicadores.home===false? {fontSize:"3rem"}:{fontSize:"3rem",color:"orange"}} />
                     :<HomeRoundedIcon sx={{fontSize:"3rem", color:"orange"}} />
                     }
                 </button>

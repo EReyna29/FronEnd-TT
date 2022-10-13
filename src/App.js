@@ -6,6 +6,7 @@ import Alertas from './Pages/Alertas'
 import Footer from './Componentes/Footer'
 
 import { VarsProvider } from "./Context/VarsContext";
+import { IndicadoresProvider } from './Context/IndicadoresContext';
 
 function App() {
 
@@ -16,9 +17,11 @@ function App() {
 
     <div className='background' >
       <VarsProvider>
-        { alert===false ? <Tablero /> : <Alertas />  }
+        <IndicadoresProvider>
+          { alert===false ? <Tablero /> : <Alertas />  }
 
-      <Footer alert={alert} setAlert={setAlert}/>
+          <Footer alert={alert} setAlert={setAlert}/>
+        </IndicadoresProvider>
       </VarsProvider>
         
       

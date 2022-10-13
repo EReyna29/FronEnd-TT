@@ -17,10 +17,10 @@ const BarraSuperior = ({degree}) => {
     const left= document.getElementById("left");
     setIzquierdo(!izquierdo);
     if(izquierdo===false){
-        left.className="alert intermitentesParpadear";
+        left.className="izquierdo intermitentesParpadear";
     }
     else{
-        left.className="alert";
+        left.className="izquierdo";
     }
     
     }
@@ -114,7 +114,7 @@ const BarraSuperior = ({degree}) => {
             </button>
             <button className='theme' onClick={()=>setNumeroTema(numeroTema+1)}>
                 <ContrastIcon sx={{fontSize:"3.5rem"}}  />
-          </button>
+            </button>
         </div>
     )
 }
