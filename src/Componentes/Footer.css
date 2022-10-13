@@ -39,7 +39,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0rem;
+    gap: 2rem;
     margin-left: 4rem;
 }
 .powerIcon{
