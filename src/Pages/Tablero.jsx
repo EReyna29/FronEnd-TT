@@ -42,10 +42,10 @@ const Tablero = () => {
       console.log("trayendo velocidad")
       let interval = null;
       interval = setInterval(async() => {
-        
+        await ObtenerPalanca()
         
         if(pal!==palanca && pal!==undefined && pal!==null){
-          await ObtenerPalanca()
+          
           console.log(pal);
           setPalanca(pal)
           setVars({...vars,"palanca":pal})
@@ -56,7 +56,7 @@ const Tablero = () => {
       return () => {
         clearInterval(interval);
       };
-    },[palanca])
+    },[])
     //Se agrega las alertas 
     const addEvent =useCallback( () =>{
       if(indicadores.carga===true){

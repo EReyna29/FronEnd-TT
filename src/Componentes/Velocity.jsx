@@ -33,10 +33,9 @@ const Velocity = () => {
     console.log("trayendo velocidad")
     let interval = null;
     interval = setInterval(async() => {
-      
+      await ObtenerVelocidad()
       
       if(vel!==velocidad && vel!==undefined && vel!==null){
-        await ObtenerVelocidad()
         console.log(vel);
         setVelocidad(vel)
         setVars({...vars,"velocidad":velocidad})

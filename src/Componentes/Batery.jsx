@@ -37,8 +37,9 @@ const Batery = () => {
     console.log("trayendo velocidad")
     let interval = null;
     interval = setInterval(async() => {
+      await ObtenerBateria()
       if(bateria!==charge && bateria!==undefined && bateria!==null){
-        await ObtenerBateria()
+        
         console.log(bateria);
         setCharge(bateria)
         setVars({...vars,"bateria":charge})
@@ -49,7 +50,7 @@ const Batery = () => {
     return () => {
       clearInterval(interval);
     };
-  },[charge])
+  },[])
 
   const bateriaCargando = () => {
     return (

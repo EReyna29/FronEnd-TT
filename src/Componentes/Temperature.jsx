@@ -38,9 +38,9 @@ const Temperature = () => {
         console.log("trayendo temperatura")
         let interval = null;
         interval = setInterval(async() => {
-            
+            await ObtenerTemperatura()
             if(temp!==degree){
-                await ObtenerTemperatura()
+                
                 console.log(temp);
                 
                 setDegree(temp)
