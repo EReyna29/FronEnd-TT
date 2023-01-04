@@ -1,23 +1,26 @@
 import { createContext, useState, useContext, useEffect } from "react";
+import { ObtenerVelocidad,ObtenerTemperatura,ObtenerBateria,ObtenerPalanca } from '../Services/lecturaArchivos'
+
 
 const VarsContext= createContext();
-const position = ["P","D","N","R"];
 
-const getRandomArbitrary=(min, max)=> {
-  return Math.random() * (max - min) + min;
+
+const functionInitial = async ()=>{
+    let initialState = {
+        carga:Math.round(parseInt(await ObtenerBateria())),
+        temperatura:Math.round(parseInt(await ObtenerTemperatura())),
+        velocidad:Math.round(parseInt(await ObtenerVelocidad())),
+        palanca:await ObtenerPalanca()
+    }
+    return initialState
 }
 
-const initialState = {
-    carga:Math.round(getRandomArbitrary(0,100)),
-    temperatura:Math.round(getRandomArbitrary(50,100)),
-    velocidad:Math.round(getRandomArbitrary(20,100)),
-    palanca:position[Math.round(getRandomArbitrary(1,3))]
-}
+
 
 //const initialState = JSON.parse(localStorage.getItem("vars") || '{"carga":0,"velocidad":0,"temperatura":0,"palanca":"P"}');
 
 export const VarsProvider = ({children}) => {
-    const [vars, setVars] = useState(initialState);
+    const [vars, setVars] = useState(functionInitial);
 
     useEffect(()=>{
         localStorage.setItem("vars",JSON.stringify(vars));

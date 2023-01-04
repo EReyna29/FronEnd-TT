@@ -11,6 +11,9 @@ import { handleCinturon,
 import { registroNotificacion } from '../Services/mongo';
 import './CentroAlertas.css'
 
+import { ObtenerTablero,tablero } from '../Services/lecturaArchivos'
+
+
 const notificacion={
     codigo:0,
     palanca:"",
@@ -18,6 +21,13 @@ const notificacion={
     carga:0.0,
     fecha:null,
     descripcion:""
+}
+
+const initialState = async()=>{
+    const res = await ObtenerTablero();
+    console.log("InitialState:" +res.Cinturon);
+    return res.Cinturon;
+     
 }
 
 const CentroAlertas = () => {
@@ -31,6 +41,21 @@ const CentroAlertas = () => {
     const [puertaTD,setPuertaTD]=useState(false);
     const [cajuela,setCajuela]=useState(false);
     const [cofre,setCofre]=useState(false);
+
+    useEffect(()=>{
+        let interval = null;
+        interval = setInterval(async() => {
+
+            const res =await ObtenerTablero()
+            setCinturon(res.Cinturon)
+            setPuertaDI(res.puertaDI)
+    
+        },1000);
+    
+        return () => {
+        clearInterval(interval);
+        };
+    },[])
 
     useEffect(()=>{
         handleCajuela(cajuela);

@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
 import './Temperature.css';
 
 import ThermostatIcon from '@mui/icons-material/Thermostat';
 import { useVars } from '../Context/VarsContext';
 import { registroAlerta } from '../Services/mongo';
 import { useIndicadores } from '../Context/IndicadoresContext';
+import { ObtenerTemperatura,temp } from '../Services/lecturaArchivos'
 
 const alerta={
     id:0,
@@ -14,31 +15,54 @@ const alerta={
     fecha:null,
     descripcion:""
   }
-const Temperature = ({degree}) => {
-    const {vars}=useVars();
+const Temperature = () => {
+    const {vars,setVars}=useVars();
+    const [degree, setDegree] = useState(temp);
     const {indicadores,setIndicadores} = useIndicadores();
 
     const handleAlertaCarga=()=>{
-        const style=document.documentElement.style;
-        console.log(vars.temperatura)
-        if(vars.temperatura<75)
-        style.setProperty('--alertaTemperatura','rgba(140, 140, 140, 0.353)');
-        else{
-            style.setProperty('--alertaTemperatura','red');
-            setIndicadores({...indicadores,"temperatura":true})
-            agregarAlerta();
+        if(degree!==null && degree!==undefined){
+            const style=document.documentElement.style;
+            console.log("HandleAlerta temp:"+ degree)
+            if(parseInt(degree)<75)
+            style.setProperty('--alertaTemperatura','rgba(140, 140, 140, 0.353)');
+            else{
+                style.setProperty('--alertaTemperatura','red');
+                setIndicadores({...indicadores,"temperatura":true})
+                agregarAlerta();
+            }
         }
+        
     }
+    useEffect(()=>{
+        console.log("trayendo temperatura")
+        let interval = null;
+        interval = setInterval(async() => {
+            
+            if(temp!==degree){
+                await ObtenerTemperatura()
+                console.log(temp);
+                
+                setDegree(temp)
+                setVars({...vars,"temperatura":degree})
+            }
+        
+        },5);
+        
+        return () => {
+            clearInterval(interval);
+        };
+    },[degree])
 
     useEffect(()=>{
-        handleAlertaCarga(vars.temperatura)
-    },[])
+        handleAlertaCarga(degree)
+    },[degree])
     
     const agregarAlerta = () =>{
         alerta.codigo= "AT" + Date.now().toString();
         alerta.nombre="Temperatura alta"
-        alerta.descripcion="La temperatura del motor se elevo a " + vars.temperatura + "°C";
-        alerta.temperatura=vars.temperatura;
+        alerta.descripcion="La temperatura del motor se elevo a " + degree + "°C";
+        alerta.temperatura=degree;
         alerta.carga=vars.carga;
         alerta.fecha=new Date(Date.now()).toString();
         

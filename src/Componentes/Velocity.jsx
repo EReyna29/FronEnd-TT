@@ -1,13 +1,19 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
+import { useVars } from "../Context/VarsContext";
+
+import { ObtenerVelocidad,vel } from '../Services/lecturaArchivos'
 import { useIndicadores } from '../Context/IndicadoresContext';
 import { handleAltas, handleBajas, handleCuartos } from '../Services/handleEvents';
 import './Velocity.css'
 
 
-const Velocity = ({velocidad}) => {
+const Velocity = () => {
+  const {vars,setVars} = useVars();
   const [color,setColor] = useState("");
   const {indicadores,setIndicadores} = useIndicadores();
+  const [velocidad, setVelocidad] = useState(vel);
+
 
   const handleLucesAltas= ()=>{
     handleAltas(indicadores.lucesAltas)
@@ -22,6 +28,26 @@ const Velocity = ({velocidad}) => {
     handleCuartos(indicadores.lucesCuartos)
     setIndicadores({...indicadores,"lucesCuartos":!indicadores.lucesCuartos});
   }
+
+  useEffect(()=>{
+    console.log("trayendo velocidad")
+    let interval = null;
+    interval = setInterval(async() => {
+      
+      
+      if(vel!==velocidad && vel!==undefined && vel!==null){
+        await ObtenerVelocidad()
+        console.log(vel);
+        setVelocidad(vel)
+        setVars({...vars,"velocidad":velocidad})
+      }
+      
+    },5);
+    
+    return () => {
+      clearInterval(interval);
+    };
+  },[])
 
   useEffect(()=>{
     if(velocidad>80){

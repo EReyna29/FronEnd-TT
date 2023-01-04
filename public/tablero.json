@@ -1,0 +1,17 @@
+{
+    "puertaDI": false,
+    "puertaDD": false,
+    "puertaTI": false,
+    "puertaTD": false,
+    "Cajuela": false,
+    "Cofre": false,
+    "Intermitentes": false,
+    "DireccionalIzq": false,
+    "DireccionalDer": false,
+    "Altas": false,
+    "Bajas": false,
+    "Alarma": false,
+    "BateriaAux": false,
+    "Cinturon": false,
+    "FrenoMano": true
+}

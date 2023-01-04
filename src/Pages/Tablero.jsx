@@ -11,6 +11,8 @@ import BarraSuperior from '../Componentes/BarraSuperior';
 import CentroAlertas from '../Componentes/CentroAlertas';
 import { handleFrenoMano } from '../Services/handleEvents';
 import { useIndicadores } from '../Context/IndicadoresContext';
+import { ObtenerPalanca, pal } from '../Services/lecturaArchivos'
+
 
 // const position = ["P","D","N","R"];
 
@@ -32,11 +34,29 @@ const Tablero = () => {
     const {indicadores,setIndicadores}=useIndicadores();
     const [charge, setCharge] = useState(vars.carga);
     const [degree, setDegree] = useState(vars.temperatura);
-    const [velocidad, setVelocidad] = useState(vars.velocidad);
-    const [palanca,setPalanca]=useState(vars.palanca);
+    //const [velocidad, setVelocidad] = useState(vars.velocidad);
+    const [palanca,setPalanca]=useState(pal);
     const [frenoMano,setFrenoMano]=useState(true);
 
- 
+    useEffect(()=>{
+      console.log("trayendo velocidad")
+      let interval = null;
+      interval = setInterval(async() => {
+        
+        
+        if(pal!==palanca && pal!==undefined && pal!==null){
+          await ObtenerPalanca()
+          console.log(pal);
+          setPalanca(pal)
+          setVars({...vars,"palanca":pal})
+        }
+        
+      },5);
+      
+      return () => {
+        clearInterval(interval);
+      };
+    },[palanca])
     //Se agrega las alertas 
     const addEvent =useCallback( () =>{
       if(indicadores.carga===true){
@@ -52,22 +72,6 @@ const Tablero = () => {
       //await registroNotificacion(alerta)
 
   },[indicadores.carga])
-
-    // useEffect(()=>{
-    //   setCharge(Math.round(getRandomArbitrary(0,100)))
-    //   setDegree(Math.round(getRandomArbitrary(50,100)))
-    //   setVelocidad(Math.round(getRandomArbitrary(20,100)))
-    //   setPalanca(position[Math.round(getRandomArbitrary(1,3))])
-    //     const variables = {
-    //       carga:charge,
-    //       temperatura:degree,
-    //       velocidad:velocidad,
-    //       palanca:palanca
-    //     }
-    //     console.log(variables)
-    //     setVars(variables)
-      
-    // },[])
 
     //Valida los indicadores del tablero
     useEffect(() => {
@@ -143,7 +147,7 @@ const Tablero = () => {
               </svg>
             </button>
           </div>
-          <Velocity velocidad={velocidad}/>
+          <Velocity/>
       </div>
       </>
   )
