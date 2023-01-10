@@ -28,7 +28,7 @@ const Velocity = () => {
     handleCuartos(indicadores.lucesCuartos)
     setIndicadores({...indicadores,"lucesCuartos":!indicadores.lucesCuartos});
   }
-
+  
   useEffect(()=>{
     console.log("trayendo velocidad")
     let interval = null;
@@ -38,10 +38,10 @@ const Velocity = () => {
       if(vel!==velocidad && vel!==undefined && vel!==null){
         console.log(vel);
         setVelocidad(vel)
-        setVars({...vars,"velocidad":velocidad})
+        setVars({...vars,"velocidad":vel})
       }
       
-    },5);
+    },1000);
     
     return () => {
       clearInterval(interval);
@@ -54,7 +54,7 @@ const Velocity = () => {
     }
   },[velocidad])
   return (
-    <div className="velocity">
+    <div className="velocity" >
       <h1 className={`velocidad ${color}`}>{velocidad} </h1>
       <h2 className={`letrakm ${color}`}>km/h</h2>
       <div className='intermitentes'>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useIndicadores } from '../Context/IndicadoresContext';
 import { useVars } from '../Context/VarsContext';
 import { handleCinturon,
@@ -47,10 +47,22 @@ const CentroAlertas = () => {
         interval = setInterval(async() => {
 
             const res =await ObtenerTablero()
-            setCinturon(res.Cinturon)
-            setPuertaDI(res.puertaDI)
+            if(res.Cinturon !== cinturon)
+                setCinturon(res.Cinturon)
+            if(res.puertaDI !== puertaDI)
+                setPuertaDI(res.puertaDI)
+            if(res.puertaDD !== puertaDD)
+                setPuertaDD(res.puertaDD)
+            if(res.puertaTI !== puertaTI)
+                setPuertaTI(res.puertaTI)
+            if(res.puertaTD !== puertaTD)
+                setPuertaTD(res.puertaTD)
+            if(res.Cajuela !== cajuela)
+                setCajuela(res.Cajuela)
+            if(res.Cofre !== cofre)
+                setCofre(res.Cofre)
     
-        },1000);
+        },10);
     
         return () => {
         clearInterval(interval);

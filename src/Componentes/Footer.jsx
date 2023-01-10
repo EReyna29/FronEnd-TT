@@ -9,6 +9,7 @@ import { handleAlertaCarga, handleBateria, handleFreno } from '../Services/handl
 import { useIndicadores } from '../Context/IndicadoresContext.jsx';
 import { registroAlerta } from '../Services/mongo';
 import { useVars } from '../Context/VarsContext';
+import { ObtenerBateria,bateria,temp } from '../Services/lecturaArchivos'
 
 const alerta={
     id:0,
@@ -25,14 +26,27 @@ const Footer = ({alert,setAlert}) => {
     const [km]= useState(0);
 
     useEffect(()=>{
-        handleAlertaCarga(indicadores.carga)
+
+        if(bateria<=50){
+            handleAlertaCarga(true)
+            agregarAlertaBancoBateria()
+        }
     },[indicadores.carga])
     
-
-    const handleAlertaBateria=(bateria)=>{
-        handleBateria(bateria)
+    const agregarAlertaBancoBateria = () =>{
+        alerta.codigo= "AC" + Date.now().toString();
+        alerta.nombre="Carga baja"
+        alerta.descripcion="La carga del banco de baterias bajo a " + bateria + "%";
+        alerta.temperatura=temp;
+        alerta.carga=bateria;
+        alerta.fecha=new Date(Date.now()).toString();
+        
+        registroAlerta(alerta);   
+    }
+    const handleAlertaBateria=(bandera)=>{
+        handleBateria(bandera)
         setIndicadores({...indicadores,"bateria":!indicadores.bateria});
-        if(bateria)
+        if(bandera)
             agregarAlertaBateria()
     }
 
@@ -40,8 +54,8 @@ const Footer = ({alert,setAlert}) => {
         alerta.codigo= "AB" + Date.now().toString();
         alerta.nombre="Bateria baja"
         alerta.descripcion="La bateria auxiliar no tiene la suficiente carga";
-        alerta.temperatura=vars.temperatura;
-        alerta.carga=vars.carga;
+        alerta.temperatura=temp;
+        alerta.carga=bateria;
         alerta.fecha=new Date(Date.now()).toString();
         
         registroAlerta(alerta);   
@@ -59,8 +73,8 @@ const Footer = ({alert,setAlert}) => {
         alerta.codigo= "AF" + Date.now().toString();
         alerta.nombre="Liquido de Freno bajo"
         alerta.descripcion="El líquido de Freno esta por debajo del nivel requerido";
-        alerta.temperatura=vars.temperatura;
-        alerta.carga=vars.carga;
+        alerta.temperatura=temp;
+        alerta.carga=bateria;
         alerta.fecha=new Date(Date.now()).toString();
 
         registroAlerta(alerta);

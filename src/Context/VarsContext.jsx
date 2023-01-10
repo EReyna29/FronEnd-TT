@@ -5,12 +5,21 @@ import { ObtenerVelocidad,ObtenerTemperatura,ObtenerBateria,ObtenerPalanca } fro
 const VarsContext= createContext();
 
 
+// const functionInitial = async ()=>{
+//     let initialState = {
+//         carga:Math.round(parseInt(await ObtenerBateria())),
+//         temperatura:Math.round(parseInt(await ObtenerTemperatura())),
+//         velocidad:Math.round(parseInt(await ObtenerVelocidad())),
+//         palanca:await ObtenerPalanca()
+//     }
+//     return initialState
+// }
 const functionInitial = async ()=>{
     let initialState = {
-        carga:Math.round(parseInt(await ObtenerBateria())),
-        temperatura:Math.round(parseInt(await ObtenerTemperatura())),
-        velocidad:Math.round(parseInt(await ObtenerVelocidad())),
-        palanca:await ObtenerPalanca()
+        carga:0,
+        temperatura:0,
+        velocidad:0,
+        palanca:0
     }
     return initialState
 }

@@ -11,7 +11,7 @@ import BarraSuperior from '../Componentes/BarraSuperior';
 import CentroAlertas from '../Componentes/CentroAlertas';
 import { handleFrenoMano } from '../Services/handleEvents';
 import { useIndicadores } from '../Context/IndicadoresContext';
-import { ObtenerPalanca, pal } from '../Services/lecturaArchivos'
+import { ObtenerPalanca, pal,bateria,temp } from '../Services/lecturaArchivos'
 
 
 // const position = ["P","D","N","R"];
@@ -32,8 +32,8 @@ const Tablero = () => {
     
     const {vars,setVars} = useVars();
     const {indicadores,setIndicadores}=useIndicadores();
-    const [charge, setCharge] = useState(vars.carga);
-    const [degree, setDegree] = useState(vars.temperatura);
+    const [charge, setCharge] = useState(bateria);
+    const [degree, setDegree] = useState(temp);
     //const [velocidad, setVelocidad] = useState(vars.velocidad);
     const [palanca,setPalanca]=useState(pal);
     const [frenoMano,setFrenoMano]=useState(true);
@@ -51,7 +51,7 @@ const Tablero = () => {
           setVars({...vars,"palanca":pal})
         }
         
-      },5);
+      },1000);
       
       return () => {
         clearInterval(interval);
@@ -62,9 +62,9 @@ const Tablero = () => {
       if(indicadores.carga===true){
         alerta.codigo= "AC" + Date.now().toString();
         alerta.nombre="Carga baja"
-        alerta.descripcion="La carga del banco de baterias bajo a " + vars.carga + "%";
-        alerta.temperatura=vars.temperatura;
-        alerta.carga=vars.carga;
+        alerta.descripcion="La carga del banco de baterias bajo a " + bateria + "%";
+        alerta.temperatura=temp;
+        alerta.carga=bateria;
         alerta.fecha=new Date(Date.now()).toString();
       }
       

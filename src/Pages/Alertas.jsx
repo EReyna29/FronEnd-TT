@@ -11,11 +11,15 @@ const Alertas = () => {
     
 
     const obtenerDatos = useCallback( async () => {
+        console.log("Entrando a Obtener Datos");
         if(handle===true){
+            console.log("Entrando a Obtener Alertas");
             const alerts = await getAlerts();
+            
             setAlertas(alerts);
         }
         else{
+            console.log("Entrando a Obtener Notificaciones");
             const notf = await getNotifications();
 
             setNotificaciones(notf);

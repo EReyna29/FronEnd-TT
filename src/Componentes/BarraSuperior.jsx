@@ -3,39 +3,79 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ContrastIcon from '@mui/icons-material/Contrast';
 import Temperature from '../Componentes/Temperature';
+import { ObtenerIntermitentes, inter } from '../Services/lecturaArchivos'
 
 import './BarraSuperior.css'
 
 const BarraSuperior = ({degree}) => {
     const [derecho,setDerecho]=useState(false);
     const [izquierdo,setIzquierdo]=useState(false);
+    const [intermitentes,setIntermitentes]=useState(false);
     const [numeroTema,setNumeroTema]=useState(1);
 
+    useEffect(()=>{
+        let interval = null;
+        interval = setInterval(async() => {
+
+            const res =await ObtenerIntermitentes()
+            if(res.Intermitentes !== intermitentes)
+                handleIntermitentes()
+            if(res.DireccionalDer !== derecho)
+                handleIzquierdo()
+            if(res.DireccionalIzq !== izquierdo)
+                handleDerecho()
+            
+        },10);
+    
+        return () => {
+        clearInterval(interval);
+        };
+    })
     
     //Acción del botón Intermitente izquierdo
     const handleIzquierdo = () =>{
-    const left= document.getElementById("left");
-    setIzquierdo(!izquierdo);
-    if(izquierdo===false){
-        left.className="izquierdo intermitentesParpadear";
+        if(intermitentes===false){
+            const left= document.getElementById("left");
+            setIzquierdo(!izquierdo);
+            if(izquierdo===false){
+                left.className="izquierdo intermitentesParpadear";
+            }
+            else{
+                left.className="izquierdo";
+            }
+        }
+        
     }
-    else{
-        left.className="izquierdo";
-    }
-    
+
+    //Acción del botón Intermitentes
+    const handleIntermitentes = () =>{
+        const left= document.getElementById("left");
+        const right= document.getElementById("right");
+        setIntermitentes(!intermitentes);
+        
+        if(intermitentes===false){
+            left.className="izquierdo intermitentesParpadear";
+            right.className="derecho intermitentesParpadear";
+        }
+        else{
+            left.className="izquierdo";
+            right.className="derecho";
+        }
     }
     
     //Acción del botón Intermitente derecho
     const handleDerecho = () =>{
-    const right= document.getElementById("right");
-    setDerecho(!derecho);
-    if(derecho===false){
-        right.className="derecho intermitentesParpadear";
-    }
-    else{
-        right.className="derecho";
-    }
-    
+        if(intermitentes===false){
+            const right= document.getElementById("right");
+            setDerecho(!derecho);
+            if(derecho===false ){
+                right.className="derecho intermitentesParpadear";
+            }
+            else{
+                right.className="derecho";
+            }
+        }
+        
     }
 
      //Asigna el tema del tablero

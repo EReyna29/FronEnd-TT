@@ -13,9 +13,9 @@ import { useVars } from "../Context/VarsContext";
 const Batery = () => {
   const {vars,setVars} = useVars();
   const niveles=[90,80,70,60,50,40,30,20,10,0];
-  const {indicadores} = useIndicadores();
+  const {setIndicadores,indicadores} = useIndicadores();
   const [color,setColor]=useState();
-  const [charge, setCharge] = useState( bateria);
+  const [charge, setCharge] = useState(bateria);
 
 
   useEffect(()=>{
@@ -38,14 +38,18 @@ const Batery = () => {
     let interval = null;
     interval = setInterval(async() => {
       await ObtenerBateria()
+      
       if(bateria!==charge && bateria!==undefined && bateria!==null){
         
         console.log(bateria);
         setCharge(bateria)
-        setVars({...vars,"bateria":charge})
+        setVars({...vars,"bateria":bateria})
+        if(bateria <=50){
+          setIndicadores({...indicadores,"carga":!indicadores.carga});
+        }
       }
       
-    },5);
+    },1000);
     
     return () => {
       clearInterval(interval);

@@ -3,17 +3,22 @@ export let temp;
 export let bateria;
 export let pal;
 export let tablero;
+export let luces;
+export let inter;
+
 
 
 export const ObtenerVelocidad= async ()=>{
-    //const controller = new AbortController()
+    
     await fetch('velocidad.txt')
     .then(res => res.text())
     .then(content => {
         vel = content
     });
-    console.log(vel);
+    //console.log(vel);
+        
     return vel;
+    
 }
 
 
@@ -24,7 +29,7 @@ export const ObtenerTemperatura= async ()=>{
     .then(content => {
         temp = content
     });
-    console.log(temp);
+    //console.log(temp);
     return temp;
 }
 
@@ -35,7 +40,7 @@ export const ObtenerBateria= async ()=>{
     .then(content => {
         bateria = content
     });
-    console.log(bateria);
+    //console.log(bateria);
     return bateria;
 }
 
@@ -46,7 +51,7 @@ export const ObtenerPalanca= async ()=>{
     .then(content => {
         pal = content
     });
-    console.log(pal);
+    //console.log(pal);
     return pal;
 }
 
@@ -57,6 +62,28 @@ export const ObtenerTablero = async ()=>{
     .then(content => {
         tablero = content
     });
-    console.log(tablero);
+    //console.log(tablero);
     return tablero;
+}
+
+export const ObtenerIntermitentes = async ()=>{
+    //const controller = new AbortController()
+    await fetch('intermitentes.json')
+    .then(res => res.json())
+    .then(content => {
+        inter = content
+    });
+    //console.log(inter);
+    return inter;
+}
+
+export const ObtenerLuces = async ()=>{
+    //const controller = new AbortController()
+    await fetch('luces.json')
+    .then(res => res.json())
+    .then(content => {
+        luces = content
+    });
+    //console.log(luces);
+    return luces;
 }

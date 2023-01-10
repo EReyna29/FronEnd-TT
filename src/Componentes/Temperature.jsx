@@ -5,7 +5,7 @@ import ThermostatIcon from '@mui/icons-material/Thermostat';
 import { useVars } from '../Context/VarsContext';
 import { registroAlerta } from '../Services/mongo';
 import { useIndicadores } from '../Context/IndicadoresContext';
-import { ObtenerTemperatura,temp } from '../Services/lecturaArchivos'
+import { ObtenerTemperatura,temp,bateria } from '../Services/lecturaArchivos'
 
 const alerta={
     id:0,
@@ -44,15 +44,15 @@ const Temperature = () => {
                 console.log(temp);
                 
                 setDegree(temp)
-                setVars({...vars,"temperatura":degree})
+                setVars({...vars,"temperatura":temp})
             }
         
-        },5);
+        },1000);
         
         return () => {
             clearInterval(interval);
         };
-    },[degree])
+    },[])
 
     useEffect(()=>{
         handleAlertaCarga(degree)
@@ -63,7 +63,7 @@ const Temperature = () => {
         alerta.nombre="Temperatura alta"
         alerta.descripcion="La temperatura del motor se elevo a " + degree + "°C";
         alerta.temperatura=degree;
-        alerta.carga=vars.carga;
+        alerta.carga=bateria;
         alerta.fecha=new Date(Date.now()).toString();
         
         registroAlerta(alerta);   
