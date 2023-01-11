@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { useVars } from "../Context/VarsContext";
 
-import { ObtenerVelocidad,vel } from '../Services/lecturaArchivos'
+import { ObtenerVelocidad,ObtenerLuces,vel,luces } from '../Services/lecturaArchivos'
 import { useIndicadores } from '../Context/IndicadoresContext';
 import { handleAltas, handleBajas, handleCuartos } from '../Services/handleEvents';
 import './Velocity.css'
@@ -13,20 +13,21 @@ const Velocity = () => {
   const [color,setColor] = useState("");
   const {indicadores,setIndicadores} = useIndicadores();
   const [velocidad, setVelocidad] = useState(vel);
+  
 
 
-  const handleLucesAltas= ()=>{
-    handleAltas(indicadores.lucesAltas)
-    setIndicadores({...indicadores,"lucesAltas":!indicadores.lucesAltas});
+  const handleLucesAltas= (estado)=>{
+    handleAltas(estado)
+    setIndicadores({...indicadores,"lucesAltas":estado});
   }
-  const handleLucesBajas=()=>{
-    handleBajas(indicadores.lucesBajas)
-    setIndicadores({...indicadores,"lucesBajas":!indicadores.lucesBajas});
+  const handleLucesBajas=(estado)=>{
+    handleBajas(estado)
+    setIndicadores({...indicadores,"lucesBajas":estado});
   }
 
-  const handleLucesCuartos=()=>{
-    handleCuartos(indicadores.lucesCuartos)
-    setIndicadores({...indicadores,"lucesCuartos":!indicadores.lucesCuartos});
+  const handleLucesCuartos=(estado)=>{
+    handleCuartos(estado)
+    setIndicadores({...indicadores,"lucesCuartos":estado});
   }
   
   useEffect(()=>{
@@ -39,6 +40,29 @@ const Velocity = () => {
         console.log(vel);
         setVelocidad(vel)
         setVars({...vars,"velocidad":vel})
+      }
+      
+    },1000);
+    
+    return () => {
+      clearInterval(interval);
+    };
+  },[])
+
+  useEffect(()=>{
+    console.log("trayendo luces")
+    let interval = null;
+    interval = setInterval(async() => {
+      const res=await ObtenerLuces()
+      
+      if(res.altas===true ){
+        handleLucesAltas(true)
+      }
+      if(res.bajas===true ){
+        handleLucesBajas(true)
+      }
+      if(res.cuartos===true ){
+        handleLucesCuartos(true)
       }
       
     },1000);
