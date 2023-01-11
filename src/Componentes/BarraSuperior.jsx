@@ -25,7 +25,7 @@ const BarraSuperior = ({degree}) => {
             if(res.DireccionalIzq !== izquierdo)
                 handleDerecho()
             
-        },10);
+        },200);
     
         return () => {
         clearInterval(interval);

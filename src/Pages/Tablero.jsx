@@ -35,28 +35,32 @@ const Tablero = () => {
     const [charge, setCharge] = useState(bateria);
     const [degree, setDegree] = useState(temp);
     //const [velocidad, setVelocidad] = useState(vars.velocidad);
-    const [palanca,setPalanca]=useState(pal);
-    const [frenoMano,setFrenoMano]=useState(true);
+    const [palanca,setPalanca]=useState('P');
+    const [frenoMano,setFrenoMano]=useState(null);
 
     useEffect(()=>{
-      console.log("trayendo velocidad")
+      console.log("trayendo palanca")
       let interval = null;
       interval = setInterval(async() => {
         await ObtenerPalanca()
-        
-        if(pal!==palanca && pal!==undefined && pal!==null){
+
+        if(pal.palanca!==palanca && pal.palanca!==undefined && pal.palanca!==null){
           
-          console.log(pal);
-          setPalanca(pal)
-          setVars({...vars,"palanca":pal})
+          console.log(pal.palanca);
+          setPalanca(pal.palanca)
+          setVars({...vars,"palanca":pal.palanca})
+        }
+        if(pal.frenoMano!==frenoMano && pal.frenoMano!==undefined && pal.frenoMano!==null){
+          handleAlertaFrenoMano()
         }
         
-      },1000);
+      },500);
       
       return () => {
         clearInterval(interval);
       };
     },[])
+
     //Se agrega las alertas 
     const addEvent =useCallback( () =>{
       if(indicadores.carga===true){
@@ -109,8 +113,8 @@ const Tablero = () => {
     }, [charge,degree,palanca])
 
     const handleAlertaFrenoMano =()=>{
-      setFrenoMano(!frenoMano)
-      handleFrenoMano(frenoMano);
+      setFrenoMano(pal.frenoMano)
+      handleFrenoMano(pal.frenoMano);
     }
     
     

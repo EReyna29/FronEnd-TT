@@ -46,8 +46,8 @@ export const ObtenerBateria= async ()=>{
 
 export const ObtenerPalanca= async ()=>{
     //const controller = new AbortController()
-    await fetch('palanca.txt')
-    .then(res => res.text())
+    await fetch('palanca.json')
+    .then(res => res.json())
     .then(content => {
         pal = content
     });

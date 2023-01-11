@@ -47,7 +47,7 @@ const Temperature = () => {
                 setVars({...vars,"temperatura":temp})
             }
         
-        },1000);
+        },500);
         
         return () => {
             clearInterval(interval);

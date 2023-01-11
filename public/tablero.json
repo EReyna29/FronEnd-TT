@@ -8,5 +8,5 @@
     "Alarma": false,
     "BateriaAux": false,
     "Cinturon": false,
-    "FrenoMano": false
+    "FrenoMano": true
 }
