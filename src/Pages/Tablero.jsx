@@ -35,7 +35,7 @@ const Tablero = () => {
     const [charge, setCharge] = useState(bateria);
     const [degree, setDegree] = useState(temp);
     //const [velocidad, setVelocidad] = useState(vars.velocidad);
-    const [palanca,setPalanca]=useState('P');
+    const [palanca,setPalanca]=useState('');
     const [frenoMano,setFrenoMano]=useState(null);
 
     useEffect(()=>{
@@ -49,6 +49,11 @@ const Tablero = () => {
           console.log(pal.palanca);
           setPalanca(pal.palanca)
           setVars({...vars,"palanca":pal.palanca})
+          if(pal.palanca==='P')
+            setIndicadores({...indicadores,"home":true})
+          else{
+            setIndicadores({...indicadores,"home":false})
+          }
         }
         if(pal.frenoMano!==frenoMano && pal.frenoMano!==undefined && pal.frenoMano!==null){
           handleAlertaFrenoMano()
@@ -61,38 +66,39 @@ const Tablero = () => {
       };
     },[])
 
-    //Se agrega las alertas 
-    const addEvent =useCallback( () =>{
-      if(indicadores.carga===true){
-        alerta.codigo= "AC" + Date.now().toString();
-        alerta.nombre="Carga baja"
-        alerta.descripcion="La carga del banco de baterias bajo a " + bateria + "%";
-        alerta.temperatura=temp;
-        alerta.carga=bateria;
-        alerta.fecha=new Date(Date.now()).toString();
-      }
+    
+    // //Se agrega las alertas 
+    // const addEvent =useCallback( () => {
+    //   if(indicadores.carga===true){
+    //     alerta.codigo= "AC" + Date.now().toString();
+    //     alerta.nombre="Carga baja"
+    //     alerta.descripcion="La carga del banco de baterias bajo a " + bateria + "%";
+    //     alerta.temperatura=temp;
+    //     alerta.carga=bateria;
+    //     alerta.fecha=new Date(Date.now()).toString();
+    //   }
       
-      registroAlerta(alerta);
-      //await registroNotificacion(alerta)
+    //   registroAlerta(alerta);
+    //   //await registroNotificacion(alerta)
 
-  },[indicadores.carga])
+    // },[indicadores.carga])
 
     //Valida los indicadores del tablero
     useEffect(() => {
-      let indicadores,carga=false,temp=false,pal=false;
+      let indicadores,carga=false,temp=false,palan=false;
       if(charge<=50)
         carga=true;
       if(degree>=80)
         temp=true;
       if(palanca==="P")
-        pal=true;
+        palan=true;
 
       indicadores={"carga":carga,
       "bateria":false,
       "temperatura":temp,
       "freno":false,
       "frenoMano":frenoMano,
-      "home":pal,
+      "home":palan,
       "cargando":false,
       "lucesAltas":false,
       "lucesBajas":false,
@@ -107,9 +113,9 @@ const Tablero = () => {
 
       setIndicadores(indicadores); 
       
-      if(carga || temp){
-        addEvent();
-      }
+      // if(carga || temp){
+      //   addEvent();
+      // }
     }, [charge,degree,palanca])
 
     const handleAlertaFrenoMano =()=>{

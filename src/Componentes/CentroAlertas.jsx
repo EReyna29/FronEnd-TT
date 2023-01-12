@@ -114,119 +114,119 @@ const CentroAlertas = () => {
 
     const handleAlertaCajuela =(isOpen)=>{
         setCajuela(!cajuela);
-        if(isOpen)
-            agregarNotificacionCajuela()
+        // if(isOpen)
+        //     agregarNotificacionCajuela()
     }
 
-    const agregarNotificacionCajuela = () =>{
-        notificacion.codigo= "NCA" + Date.now().toString();
-        notificacion.palanca=vars.palanca;
-        notificacion.descripcion="La cajuela esta abierta";
-        notificacion.temperatura=vars.temperatura;
-        notificacion.carga=vars.carga;
-        notificacion.fecha=new Date(Date.now()).toString();
+    // const agregarNotificacionCajuela = () =>{
+    //     notificacion.codigo= "NCA" + Date.now().toString();
+    //     notificacion.palanca=vars.palanca;
+    //     notificacion.descripcion="La cajuela esta abierta";
+    //     notificacion.temperatura=vars.temperatura;
+    //     notificacion.carga=vars.carga;
+    //     notificacion.fecha=new Date(Date.now()).toString();
 
-        registroNotificacion(notificacion);
-    }
+    //     registroNotificacion(notificacion);
+    // }
     const handleAlertaCofre =(isOpen)=>{
         setCofre(!cofre)
-        if(isOpen)
-            agregarNotificacionCofre()
+        // if(isOpen)
+        //     agregarNotificacionCofre()
     }
 
-    const agregarNotificacionCofre = () =>{
-        notificacion.codigo= "NCO" + Date.now().toString();
-        notificacion.palanca=vars.palanca;
-        notificacion.descripcion="El cofre esta abierto";
-        notificacion.temperatura=vars.temperatura;
-        notificacion.carga=vars.carga;
-        notificacion.fecha=new Date(Date.now()).toString();
+    // const agregarNotificacionCofre = () =>{
+    //     notificacion.codigo= "NCO" + Date.now().toString();
+    //     notificacion.palanca=vars.palanca;
+    //     notificacion.descripcion="El cofre esta abierto";
+    //     notificacion.temperatura=vars.temperatura;
+    //     notificacion.carga=vars.carga;
+    //     notificacion.fecha=new Date(Date.now()).toString();
 
-        registroNotificacion(notificacion);
-    }
+    //     registroNotificacion(notificacion);
+    // }
     const handleAlertaCinturon =(isOpen)=>{
         setCinturon(!cinturon)
-        if(isOpen)
-            agregarNotificacionCinturon()
+        // if(isOpen)
+        //     agregarNotificacionCinturon()
     }
 
-    const agregarNotificacionCinturon = () =>{
-        notificacion.codigo= "NCI" + Date.now().toString();
-        notificacion.palanca=vars.palanca;
-        notificacion.descripcion="El cinturon esta abierto";
-        notificacion.temperatura=vars.temperatura;
-        notificacion.carga=vars.carga;
-        notificacion.fecha=new Date(Date.now()).toString();
+    // const agregarNotificacionCinturon = () =>{
+    //     notificacion.codigo= "NCI" + Date.now().toString();
+    //     notificacion.palanca=vars.palanca;
+    //     notificacion.descripcion="El cinturon esta abierto";
+    //     notificacion.temperatura=vars.temperatura;
+    //     notificacion.carga=vars.carga;
+    //     notificacion.fecha=new Date(Date.now()).toString();
 
-        registroNotificacion(notificacion);
-    }
+    //     registroNotificacion(notificacion);
+    // }
 
     const handleAlertaPuertaDI =(isOpen)=>{
         setPuertaDI(!puertaDI)
-        if(isOpen)
-            agregarNotificacionPDI()
+        // if(isOpen)
+        //     agregarNotificacionPDI()
     }
 
-    const agregarNotificacionPDI = () =>{
-        notificacion.codigo= "NPDI" + Date.now().toString();
-        notificacion.palanca=vars.palanca;
-        notificacion.descripcion="Puerta Delantera Piloto abierta";
-        notificacion.temperatura=vars.temperatura;
-        notificacion.carga=vars.carga;
-        notificacion.fecha=new Date(Date.now()).toString();
+    // const agregarNotificacionPDI = () =>{
+    //     notificacion.codigo= "NPDI" + Date.now().toString();
+    //     notificacion.palanca=vars.palanca;
+    //     notificacion.descripcion="Puerta Delantera Piloto abierta";
+    //     notificacion.temperatura=vars.temperatura;
+    //     notificacion.carga=vars.carga;
+    //     notificacion.fecha=new Date(Date.now()).toString();
 
-        registroNotificacion(notificacion);
-    }
+    //     registroNotificacion(notificacion);
+    // }
     const handleAlertaPuertaDD =(isOpen)=>{
         setPuertaDD(!puertaDD)
-        if(isOpen)
-            agregarNotificacionPDD()
+        // if(isOpen)
+        //     agregarNotificacionPDD()
     }
 
-    const agregarNotificacionPDD = () =>{
-        notificacion.codigo= "NPDD" + Date.now().toString();
-        notificacion.palanca=vars.palanca;
-        notificacion.descripcion="Puerta Delantera Copiloto abierta";
-        notificacion.temperatura=vars.temperatura;
-        notificacion.carga=vars.carga;
-        notificacion.fecha=new Date(Date.now()).toString();
+    // const agregarNotificacionPDD = () =>{
+    //     notificacion.codigo= "NPDD" + Date.now().toString();
+    //     notificacion.palanca=vars.palanca;
+    //     notificacion.descripcion="Puerta Delantera Copiloto abierta";
+    //     notificacion.temperatura=vars.temperatura;
+    //     notificacion.carga=vars.carga;
+    //     notificacion.fecha=new Date(Date.now()).toString();
 
-        registroNotificacion(notificacion);
-    }
+    //     registroNotificacion(notificacion);
+    // }
 
     const handleAlertaPuertaTI =(isOpen)=>{
         setPuertaTI(!puertaTI)
-        if(isOpen)
-            agregarNotificacionPTI()
+        // if(isOpen)
+        //     agregarNotificacionPTI()
     }
 
-    const agregarNotificacionPTI = () =>{
-        notificacion.codigo= "NPTI" + Date.now().toString();
-        notificacion.palanca=vars.palanca;
-        notificacion.descripcion="Puerta Trasera Piloto abierta";
-        notificacion.temperatura=vars.temperatura;
-        notificacion.carga=vars.carga;
-        notificacion.fecha=new Date(Date.now()).toString();
+    // const agregarNotificacionPTI = () =>{
+    //     notificacion.codigo= "NPTI" + Date.now().toString();
+    //     notificacion.palanca=vars.palanca;
+    //     notificacion.descripcion="Puerta Trasera Piloto abierta";
+    //     notificacion.temperatura=vars.temperatura;
+    //     notificacion.carga=vars.carga;
+    //     notificacion.fecha=new Date(Date.now()).toString();
 
-        registroNotificacion(notificacion);
-    }
+    //     registroNotificacion(notificacion);
+    // }
 
     const handleAlertaPuertaTD =(isOpen)=>{
         setPuertaTD(!puertaTD)
-        if(isOpen)
-            agregarNotificacionPTD()
+        // if(isOpen)
+        //     agregarNotificacionPTD()
     }
 
-    const agregarNotificacionPTD = () =>{
-        notificacion.codigo= "NPTD" + Date.now().toString();
-        notificacion.palanca=vars.palanca;
-        notificacion.descripcion="Puerta Trasera Copiloto abierta";
-        notificacion.temperatura=vars.temperatura;
-        notificacion.carga=vars.carga;
-        notificacion.fecha=new Date(Date.now()).toString();
+    // const agregarNotificacionPTD = () =>{
+    //     notificacion.codigo= "NPTD" + Date.now().toString();
+    //     notificacion.palanca=vars.palanca;
+    //     notificacion.descripcion="Puerta Trasera Copiloto abierta";
+    //     notificacion.temperatura=vars.temperatura;
+    //     notificacion.carga=vars.carga;
+    //     notificacion.fecha=new Date(Date.now()).toString();
 
-        registroNotificacion(notificacion);
-    }
+    //     registroNotificacion(notificacion);
+    // }
 
     
     return (

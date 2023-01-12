@@ -29,43 +29,43 @@ const Footer = ({alert,setAlert}) => {
 
         if(bateria<=50){
             handleAlertaCarga(true)
-            agregarAlertaBancoBateria()
+            //agregarAlertaBancoBateria()
         }
     },[indicadores.carga])
     
-    const agregarAlertaBancoBateria = () =>{
-        alerta.codigo= "AC" + Date.now().toString();
-        alerta.nombre="Carga baja"
-        alerta.descripcion="La carga del banco de baterias bajo a " + bateria + "%";
-        alerta.temperatura=temp;
-        alerta.carga=bateria;
-        alerta.fecha=new Date(Date.now()).toString();
+    // const agregarAlertaBancoBateria = () =>{
+    //     alerta.codigo= "AC" + Date.now().toString();
+    //     alerta.nombre="Carga baja"
+    //     alerta.descripcion="La carga del banco de baterias bajo a " + bateria + "%";
+    //     alerta.temperatura=temp;
+    //     alerta.carga=bateria;
+    //     alerta.fecha=new Date(Date.now()).toString();
         
-        registroAlerta(alerta);   
-    }
+    //     registroAlerta(alerta);   
+    // }
     const handleAlertaBateria=(bandera)=>{
         handleBateria(bandera)
         setIndicadores({...indicadores,"bateria":!indicadores.bateria});
-        if(bandera)
-            agregarAlertaBateria()
+        // if(bandera)
+        //     agregarAlertaBateria()
     }
 
-    const agregarAlertaBateria = () =>{
-        alerta.codigo= "AB" + Date.now().toString();
-        alerta.nombre="Bateria baja"
-        alerta.descripcion="La bateria auxiliar no tiene la suficiente carga";
-        alerta.temperatura=temp;
-        alerta.carga=bateria;
-        alerta.fecha=new Date(Date.now()).toString();
+    // const agregarAlertaBateria = () =>{
+    //     alerta.codigo= "AB" + Date.now().toString();
+    //     alerta.nombre="Bateria baja"
+    //     alerta.descripcion="La bateria auxiliar no tiene la suficiente carga";
+    //     alerta.temperatura=temp;
+    //     alerta.carga=bateria;
+    //     alerta.fecha=new Date(Date.now()).toString();
         
-        registroAlerta(alerta);   
-    }
+    //     registroAlerta(alerta);   
+    // }
     const handleAlertaFreno=(freno)=>{
         handleFreno(freno)
         setIndicadores({...indicadores,"freno":!indicadores.freno});
-        if(freno){
-            agregarAlertaFreno();
-        }
+        // if(freno){
+        //     agregarAlertaFreno();
+        // }
         
     }
 

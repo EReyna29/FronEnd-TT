@@ -6,12 +6,12 @@ import Temperature from '../Componentes/Temperature';
 import { ObtenerIntermitentes, inter } from '../Services/lecturaArchivos'
 
 import './BarraSuperior.css'
-
+const initialState = JSON.parse(localStorage.getItem("Tema") || 1);
 const BarraSuperior = ({degree}) => {
     const [derecho,setDerecho]=useState(false);
     const [izquierdo,setIzquierdo]=useState(false);
     const [intermitentes,setIntermitentes]=useState(false);
-    const [numeroTema,setNumeroTema]=useState(1);
+    const [numeroTema,setNumeroTema]=useState(initialState);
 
     useEffect(()=>{
         let interval = null;
@@ -97,6 +97,7 @@ const BarraSuperior = ({degree}) => {
                 style.setProperty('--backgroundColorHidden','rgba(0, 96, 0, 0.562)');
                 style.setProperty('--backgroundColorCharge','orange');
                 style.setProperty('--colorTema','rgb(255, 166, 0)');
+                localStorage.setItem("Tema",JSON.stringify(1))
                 break;
 
         case 2: style.setProperty('--color','rgb(255, 166, 0)');
@@ -105,6 +106,7 @@ const BarraSuperior = ({degree}) => {
                 style.setProperty('--backgroundColorHidden','rgba(144, 94, 0, 0.705)');
                 style.setProperty('--backgroundColorCharge','orange');
                 style.setProperty('--colorTema','rgb(0, 40, 200)');
+                localStorage.setItem("Tema",JSON.stringify(2))
                 break;
         case 3: style.setProperty('--color','rgb(0, 40, 200)');
                 style.setProperty('--colorHidden','rgba(0, 33, 165, 0.8)');
@@ -112,6 +114,7 @@ const BarraSuperior = ({degree}) => {
                 style.setProperty('--backgroundColorHidden','rgba(0, 33, 165, 0.8)');
                 style.setProperty('--backgroundColorCharge','orange');
                 style.setProperty('--colorTema','rgb(255, 255, 0)');
+                localStorage.setItem("Tema",JSON.stringify(3))
                 break;
             
         case 4: style.setProperty('--color','rgb(255, 255, 0)');
@@ -120,6 +123,7 @@ const BarraSuperior = ({degree}) => {
                 style.setProperty('--backgroundColorHidden','rgba(170, 170, 0, 0.752)');
                 style.setProperty('--backgroundColorCharge','orange');
                 style.setProperty('--colorTema','rgb(187, 109, 255)');
+                localStorage.setItem("Tema",JSON.stringify(4))
                 break;
         case 5: style.setProperty('--color','rgb(187, 109, 255)');
                 style.setProperty('--colorHidden','rgba(168, 69, 255, 0.709)');
@@ -127,6 +131,7 @@ const BarraSuperior = ({degree}) => {
                 style.setProperty('--backgroundColorHidden','rgba(168, 69, 255, 0.709)');
                 style.setProperty('--backgroundColorCharge','orange');
                 style.setProperty('--colorTema','rgb(6, 246, 6)');
+                localStorage.setItem("Tema",JSON.stringify(5))
                 break;
         
         default: break;

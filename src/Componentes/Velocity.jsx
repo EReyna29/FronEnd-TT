@@ -42,7 +42,7 @@ const Velocity = () => {
         setVars({...vars,"velocidad":vel})
       }
       
-    },1000);
+    },500);
     
     return () => {
       clearInterval(interval);

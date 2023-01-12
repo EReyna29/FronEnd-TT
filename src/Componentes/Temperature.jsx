@@ -24,12 +24,12 @@ const Temperature = () => {
         if(degree!==null && degree!==undefined){
             const style=document.documentElement.style;
             console.log("HandleAlerta temp:"+ degree)
-            if(parseInt(degree)<75)
+            if(parseInt(degree)<40)
             style.setProperty('--alertaTemperatura','rgba(140, 140, 140, 0.353)');
             else{
                 style.setProperty('--alertaTemperatura','red');
                 setIndicadores({...indicadores,"temperatura":true})
-                agregarAlerta();
+                //agregarAlerta();
             }
         }
         
@@ -54,20 +54,21 @@ const Temperature = () => {
         };
     },[])
 
+
     useEffect(()=>{
         handleAlertaCarga(degree)
     },[degree])
     
-    const agregarAlerta = () =>{
-        alerta.codigo= "AT" + Date.now().toString();
-        alerta.nombre="Temperatura alta"
-        alerta.descripcion="La temperatura del motor se elevo a " + degree + "°C";
-        alerta.temperatura=degree;
-        alerta.carga=bateria;
-        alerta.fecha=new Date(Date.now()).toString();
+    // const agregarAlerta = () =>{
+    //     alerta.codigo= "AT" + Date.now().toString();
+    //     alerta.nombre="Temperatura alta"
+    //     alerta.descripcion="La temperatura del motor se elevo a " + degree + "°C";
+    //     alerta.temperatura=degree;
+    //     alerta.carga=bateria;
+    //     alerta.fecha=new Date(Date.now()).toString();
         
-        registroAlerta(alerta);   
-    }
+    //     registroAlerta(alerta);   
+    // }
 
     return (
     <>

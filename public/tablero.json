@@ -1,12 +1,11 @@
 {
     "puertaDI": true,
     "puertaDD": true,
-    "puertaTI": false,
-    "puertaTD": false,
-    "Cajuela": false,
+    "puertaTI": true,
+    "puertaTD": true,
+    "Cajuela": true,
     "Cofre": true,
     "Alarma": false,
     "BateriaAux": false,
-    "Cinturon": false,
-    "FrenoMano": true
+    "Cinturon": false
 }
